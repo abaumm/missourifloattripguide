@@ -7,7 +7,8 @@
 <meta name="description" content="Find your perfect Missouri float trip. Live river conditions, personalized matching, outfitter links, and gear lists for Ozark waterways.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* ─────────────────────────────────────────
@@ -4421,16 +4422,16 @@ async function fetchLevels() {
       if (cfs !== undefined && t) {
         if (cfs < t.low) {
           status = 'low'; badge = 'Low — confirm before booking';
-          plain = `At ${Math.round(cfs).toLocaleString()} CFS the river may be too shallow in sections. Confirm with your outfitter before booking.`;
+          plain = `At ${Math.round(cfs).toLocaleString()} CFS the river may be too shallow in sections. Expect dragging over gravel bars. Kayaks handle low water better than canoes or rafts. Confirm with your outfitter before booking — some segments may be unrunnable.`;
         } else if (cfs <= t.good) {
           status = 'good'; badge = 'Good conditions';
-          plain = `At ${Math.round(cfs).toLocaleString()} CFS this river is in good floating shape. Typical conditions for this time of year.`;
+          plain = `At ${Math.round(cfs).toLocaleString()} CFS this river is in good floating shape. All vessel types suitable. Typical conditions for this time of year.`;
         } else if (cfs <= t.high) {
-          status = 'high'; badge = 'High — experienced only';
-          plain = `At ${Math.round(cfs).toLocaleString()} CFS the river is running high and fast. Not recommended for beginners. Check with your outfitter.`;
+          status = 'high'; badge = 'High — experienced paddlers only';
+          plain = `At ${Math.round(cfs).toLocaleString()} CFS the river is running high and fast. Recommended for experienced paddlers only. Rafts preferred over canoes — current can pin a canoe against a log with significant force. Beginners should wait for levels to drop.`;
         } else {
           status = 'flood'; badge = 'Flood stage — do not float';
-          plain = `At ${Math.round(cfs).toLocaleString()} CFS this river is at or near flood stage. Do not launch until levels drop and outfitter confirms safe conditions.`;
+          plain = `At ${Math.round(cfs).toLocaleString()} CFS this river is at or near flood stage. Do not launch under any circumstances. Downed trees and debris in the main channel create life-threatening strainer hazards. Wait until levels drop and your outfitter confirms safe conditions.`;
         }
       }
 
