@@ -4019,13 +4019,19 @@ function pickRiver() {
   if (p === 'party') {
     if (v==='easy' || e==='first') return o==='stl' ? 'huzzah' : (o==='kc' ? 'niangua' : 'elk');
     if (v==='classic') return o==='stl' ? 'huzzah' : 'elk';
-    if (v==='scenic') return 'current';
-    if (v==='adventure') return e==='exp' ? 'jacksfork' : 'current';
+    if (v==='scenic') return (l==='halfday') ? (o==='stl' ? 'huzzah' : 'elk') : 'current';
+    if (v==='adventure') return (e==='exp' && (l==='overnight'||l==='multiday')) ? 'jacksfork' : 'current';
     return o==='stl' ? 'huzzah' : 'elk';
   }
   // Chill persona
   if (g==='dog' || v==='dog') return o==='stl' ? 'courtois' : (o==='kc' ? 'niangua' : 'current');
-  if (v==='solitude') return 'elevenpoint';
+  if (v==='solitude') {
+    if (l==='multiday') return 'elevenpoint';
+    if (l==='overnight') return e==='exp' ? 'elevenpoint' : 'jacksfork';
+    if (e==='exp') return o==='stl' ? 'courtois' : 'jacksfork';
+    if (l==='fullday') return o==='stl' ? 'courtois' : 'current';
+    return o==='stl' ? 'courtois' : 'current'; // half day casual
+  }
   if (g==='family' || v==='family') return o==='stl' ? 'meramec' : (o==='kc' ? 'niangua' : 'current');
   if (v==='scenic' && e==='exp') return o==='stl' ? 'courtois' : 'jacksfork';
   if (v==='scenic') return o==='kc' ? 'niangua' : 'current';
