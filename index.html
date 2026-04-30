@@ -2155,9 +2155,10 @@ footer {
 }
 
 /* Switch to hamburger before nav items can crowd, wrap, or overflow.
-   With logo + 8 nav links + Get Started CTA, the full nav needs ~1300px to fit
-   without anything dropping off the right edge. */
-@media (max-width: 1300px) {
+   With logo + 8 nav links + Get Started CTA, the full nav needs ~1400px to fit
+   without anything dropping off the right edge. Erring on the side of showing
+   the hamburger earlier — a clean hamburger beats a cramped/overflowing desktop nav. */
+@media (max-width: 1400px) {
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
 }
