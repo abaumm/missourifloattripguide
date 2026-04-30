@@ -150,6 +150,7 @@ ul, ol { list-style: none; }
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  flex-wrap: nowrap;
 }
 
 .nav-links a {
@@ -160,6 +161,8 @@ ul, ol { list-style: none; }
   padding: 0.5rem 0.875rem;
   border-radius: 3px;
   letter-spacing: 0.03em;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: color 0.15s, background 0.15s;
 }
 .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
@@ -1327,6 +1330,17 @@ ul, ol { list-style: none; }
   border-radius: 6px;
   padding: 1.125rem 1.375rem;
   margin-bottom: 1.75rem;
+  box-sizing: border-box;
+}
+.rv-drawer-outfitter > div { min-width: 0; flex: 1 1 200px; }
+@media (max-width: 480px) {
+  .rv-drawer-outfitter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+  .rv-drawer-outfitter > div { flex: 0 0 auto; }
 }
 .rv-drawer-out-name {
   font-family: var(--serif);
@@ -1359,6 +1373,9 @@ ul, ol { list-style: none; }
 }
 .btn-drawer-book:hover { background: var(--rust-dk); transform: translateY(-1px); }
 .btn-drawer-book svg { width: 0.875rem; height: 0.875rem; stroke: currentColor; stroke-width: 2.5; fill: none; }
+@media (max-width: 480px) {
+  .btn-drawer-book { width: 100%; justify-content: center; }
+}
 
 .rv-drawer-tip {
   font-size: var(--t-sm);
@@ -2134,9 +2151,14 @@ footer {
   .result-cols { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 768px) {
+/* Switch to hamburger before nav items can crowd or wrap.
+   With 9 items + logo + CTA, the full nav needs ~1100px to fit cleanly. */
+@media (max-width: 1100px) {
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
+}
+
+@media (max-width: 768px) {
   .stats-inner { flex-wrap: wrap; }
   .stat { min-width: 50%; border-right: none; border-bottom: 1px solid var(--ink-08); }
   .stat:nth-child(odd) { border-right: 1px solid var(--ink-08); }
@@ -2176,6 +2198,174 @@ footer {
 @media (min-resolution: 1dppx) {
   html { overflow-wrap: break-word; word-break: break-word; }
 }
+
+/* ── OUTFITTER MAPS SECTION (top-level, reachable from nav) ── */
+.outfitter-maps-section {
+  background: var(--white);
+  padding: 5rem 0;
+}
+@media (max-width: 768px) {
+  .outfitter-maps-section { padding: 3rem 0; }
+}
+.om-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 1.25rem 0;
+}
+.om-tab {
+  font-family: var(--sans);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--ink-08);
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s var(--ease);
+  white-space: nowrap;
+}
+.om-tab:hover:not(:disabled):not(.active) {
+  border-color: var(--rust);
+  color: var(--rust);
+}
+.om-tab.active {
+  background: var(--rust);
+  color: var(--white);
+  border-color: var(--rust);
+}
+.om-tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: var(--cream);
+  color: var(--ink-50);
+}
+.om-tab .om-tab-count {
+  font-weight: 400;
+  margin-left: 0.4rem;
+  opacity: 0.8;
+}
+.om-map-wrap {
+  border: 1px solid var(--ink-08);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--cream);
+}
+.om-map {
+  width: 100%;
+  height: 520px;
+}
+@media (max-width: 768px) {
+  .om-map { height: 420px; }
+}
+.om-meta {
+  font-size: var(--t-xs);
+  color: var(--ink-50);
+  padding: 0.75rem 1rem;
+  background: var(--cream);
+  border-top: 1px solid var(--ink-08);
+  line-height: 1.5;
+}
+
+/* ── OUTFITTER MAP (Leaflet, in-drawer) ── */
+.rv-drawer-map-wrap {
+  margin-top: 0.75rem;
+  border: 1px solid var(--ink-08);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--cream);
+}
+.rv-drawer-map {
+  width: 100%;
+  height: 360px;
+}
+@media (max-width: 640px) {
+  .rv-drawer-map { height: 300px; }
+}
+.rv-drawer-map-note {
+  font-size: var(--t-xs);
+  color: var(--ink-50);
+  padding: 0.625rem 0.875rem;
+  background: var(--cream);
+  border-top: 1px solid var(--ink-08);
+  line-height: 1.5;
+}
+.rv-drawer-map-note a {
+  color: var(--rust);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rv-drawer-map-empty {
+  padding: 1rem 1.125rem;
+  font-size: var(--t-sm);
+  color: var(--ink-50);
+  background: var(--cream);
+  border: 1px dashed var(--ink-08);
+  border-radius: 6px;
+  margin-top: 0.75rem;
+}
+/* Leaflet popup brand match */
+.leaflet-popup-content-wrapper {
+  border-radius: 6px;
+  font-family: var(--sans);
+}
+.leaflet-popup-content {
+  margin: 0.75rem 0.875rem;
+  font-size: var(--t-sm);
+  line-height: 1.5;
+}
+.leaflet-popup-content .pop-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+.leaflet-popup-content .pop-segment {
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-50);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.leaflet-popup-content .pop-meta {
+  font-size: var(--t-xs);
+  color: var(--ink-50);
+  margin-bottom: 0.5rem;
+}
+.leaflet-popup-content .pop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.leaflet-popup-content .pop-btn {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--t-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.15s var(--ease);
+}
+.leaflet-popup-content .pop-btn-primary {
+  background: var(--rust);
+  color: white;
+}
+.leaflet-popup-content .pop-btn-primary:hover { background: var(--rust-dk); }
+.leaflet-popup-content .pop-btn-secondary {
+  background: white;
+  color: var(--ink);
+  border: 1px solid var(--ink-08);
+}
+.leaflet-popup-content .pop-btn-secondary:hover { background: var(--cream); }
 </style>
 </head>
 <body>
@@ -2192,6 +2382,7 @@ footer {
       <li><a href="#vessel-section">Vessel Guide</a></li>
       <li><a href="#levels-section">Live Levels</a></li>
       <li><a href="#rivers-section">All Rivers</a></li>
+      <li><a href="#outfitter-maps-section">Outfitter Maps</a></li>
       <li><a href="#gear-section">Gear Lists</a></li>
       <li><a href="#checklist-section">Packing List</a></li>
       <li><a href="#quiz-section" class="nav-cta">Get Started</a></li>
@@ -2206,6 +2397,7 @@ footer {
     <a href="#vessel-section">Vessel Guide</a>
     <a href="#levels-section">Live Levels</a>
     <a href="#rivers-section">All Rivers</a>
+    <a href="#outfitter-maps-section">Outfitter Maps</a>
     <a href="#gear-section">Gear Lists</a>
     <a href="#checklist-section">Packing List</a>
   </nav>
@@ -3029,6 +3221,18 @@ footer {
     </div>
   </div>
 </section>
+<section class="outfitter-maps-section section" id="outfitter-maps-section" aria-labelledby="om-hd">
+  <div class="wrap">
+    <p class="eyebrow" aria-hidden="true">Find Your Outfitter</p>
+    <h2 class="section-h2" id="om-hd">Outfitter Maps</h2>
+    <p class="section-sub" style="margin-top:0.5rem;margin-bottom:0;">Tap a river to see every outfitter on it — phone, website, and directions in one map. Pricing and hours change seasonally; confirm with the outfitter before booking.</p>
+    <div class="om-tabs" role="tablist" aria-label="Choose a river" id="om-tabs"></div>
+    <div class="om-map-wrap">
+      <div class="om-map" id="om-map" role="application" aria-live="polite" aria-label="Outfitter map"></div>
+      <p class="om-meta" id="om-meta">Pick a river above to load its outfitter map.</p>
+    </div>
+  </div>
+</section>
 <section class="gear-section section" id="gear-section" aria-labelledby="gear-hd">
   <div class="wrap">
     <p class="eyebrow" aria-hidden="true">What to Pack</p>
@@ -3559,6 +3763,19 @@ const RIVERS = {
       { name:'The jumping rock (near Pulltite)', note:'A well-known jumping spot near Pulltite Spring. Ask your outfitter for the exact location.' },
     ],
     fishing:'<strong>Fishing the Current:</strong> Cedar Grove to Akers is the best trout water — use small inline spinners (Mepps), minnow crankbaits 2–3.5 inches, or Ned rigs. The stretch from Akers to Pulltite is poor for smallmouth due to cold Welch Spring inflow keeping the water too cold. Smallmouth fishing improves significantly below Pulltite. Huge brown trout have been reported in deep holes above Cedar Grove feeding at night after heavy rain. <strong>Kayak fishing tip:</strong> Use a short telescopic or ice fishing rod (30–36 inches) — far easier to manage than a full-length rod in a moving kayak. Tie a foam pool noodle section onto the rod handle so it floats if dropped. Tether the rod with a short rope rather than a bungee cord. Keep your tackle minimal and your box latched at all times.',
+    /* Outfitter map — coords are approximate, based on town/access addresses. Refine via Google Maps when convenient. */
+    mapCenter: [37.10, -91.28], mapZoom: 9,
+    outfitters: [
+      { name:'Jadwin Canoe Rental',           segment:'Upper Current · Cedar Grove', lat:37.522, lng:-91.482, phone:'573-729-5229', website:'https://jadwincanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false, distances:['3–94 mi'] },
+      { name:'Akers Ferry Canoe Rental',      segment:'Upper Current · Akers',       lat:37.379, lng:-91.554, phone:'573-858-3224', website:'https://www.currentrivercanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Current River Canoe Rental',    segment:'Upper Current · Pulltite',    lat:37.300, lng:-91.475, phone:'1-800-435-5050', website:'https://www.currentrivercanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:"Carr's Canoe Rental",           segment:'Mid Current · Round Spring',  lat:37.281, lng:-91.404, phone:'573-858-3240', website:'https://carrscurrentriver.com', vessels:['canoe','kayak','tube'],         camping:true,  lodging:false },
+      { name:'Two Rivers Canoe Rental',       segment:'Mid Current · Two Rivers',    lat:37.110, lng:-91.255, phone:'1-888-833-4931', website:null, vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'The Landing',                   segment:'Lower Current · Van Buren',   lat:36.995, lng:-91.013, phone:'573-323-8156', website:'https://www.thelandingcurrentriver.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:true  },
+      { name:'Big Spring Canoe & Tube Rental', segment:'Lower Current · Van Buren',  lat:36.952, lng:-91.045, phone:'1-800-567-8701', website:null, vessels:['canoe','tube'],                 camping:false, lodging:false },
+      { name:'Rocky River Resort',            segment:'Lower Current · Doniphan',    lat:36.620, lng:-90.825, phone:'573-996-7171', website:null, vessels:['canoe','raft','tube'],          camping:true,  lodging:true  },
+      { name:"KC's on the Current",           segment:'Lower Current · Doniphan',    lat:36.620, lng:-90.835, phone:'573-996-7961', website:'http://www.kcsonthecurrent.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+    ],
   },
   jacksfork: {
     name:"Jacks Fork River", tagline:"The Current's wilder twin. Fewer crowds, more challenge, and breathtaking Ozark bluff scenery.",
@@ -3590,6 +3807,14 @@ const RIVERS = {
       { name:'Bluff climbs (Prongs to Alley)', note:'Multiple climbable bluffs along this stretch with spectacular views of the river corridor from above. Some of the best views in the Ozarks.' },
     ],
     fishing:'<strong>Fishing Jacks Fork:</strong> Jacks Fork is primarily a smallmouth bass river. The upper stretches above Alley Spring hold good populations. Deep diving crankbaits work well for both smallmouth and the occasional trout. The river can run low by late summer on the upper stretches — check the gauge before a fishing trip.',
+    /* Outfitter map — coords are approximate, based on town/access addresses. */
+    mapCenter: [37.13, -91.36], mapZoom: 11,
+    outfitters: [
+      { name:"Harvey's Alley Spring",     segment:'Upper Jacks Fork · Alley Spring', lat:37.146, lng:-91.460, phone:'573-226-3386', website:'https://harveysalleyspring.com', vessels:['canoe','kayak','raft','tube'], camping:false, lodging:false },
+      { name:"Windy's Floats",            segment:'Mid Jacks Fork · Eminence',       lat:37.151, lng:-91.355, phone:'573-226-3404', website:'https://windysfloats.com', vessels:['canoe','kayak','raft','tube'], camping:false, lodging:false },
+      { name:'Jacks Fork Canoe Rental',   segment:'Mid Jacks Fork · Eminence',       lat:37.143, lng:-91.358, phone:'573-858-3224', website:'https://www.jacksforkcanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Two Rivers Canoe Rental',   segment:'Lower Jacks Fork · Two Rivers',   lat:37.110, lng:-91.255, phone:'1-888-833-4931', website:'https://www.2riverscanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+    ],
   },
   meramec: {
     name:"Meramec River", tagline:"St. Louis's backyard river. Friendly, accessible, and built for groups.",
@@ -3605,6 +3830,34 @@ const RIVERS = {
     partyNote:'<strong>Party Float tip:</strong> The Meramec is built for this. Wide, easy, great outfitters, gravel bars. Peak summer weekends are lively. That is kind of the point.',
     chillNote:'<strong>Chill Float tip:</strong> Timing matters. Weekday floats or early June hit a noticeably calmer river. Lower stretches near Sullivan run quieter.',
     dogNote:'<strong>Dog tip:</strong> The Meramec is very dog-friendly — mellow current, frequent gravel bar stops, and most outfitters allow dogs. Call ahead to confirm and book a canoe rather than a tube for easier dog management.',
+    segments:[
+      { name:'Meramec State Park 5-mile loop', miles:'~5 mi', note:'The iconic Meramec day float. State park concession handles canoes, kayaks, rafts, and shuttle. The default first-timer trip — wide, easy, and finishes near Sullivan with cabins and camping at the takeout.' },
+      { name:'Meramec State Park to Meramec Caverns', miles:'~6 mi', note:'Float ends at the famous Stanton show cave. Half to full day depending on pace. Good combo trip for groups that want a cave tour after the float.' },
+      { name:'Onondaga Cave State Park to Meramec State Park', miles:'~28 mi', note:'The classic multi-day Upper-to-Lower run. Bookended by two of Missouri\'s best show caves with extensive bluff scenery in between. Plan two nights on gravel bars.' },
+      { name:'Steelville cluster (Upper Meramec)', note:'Above Onondaga the river is narrower and shaded. Bass River Resort, Indian Springs, and the Steelville outfitter cluster handle put-ins through this stretch. Less crowded than the State Park section, especially mid-week.' },
+      { name:'Sand Ford to Birds Nest Campground', miles:'~15 mi', note:'Smallmouth Bass Special Management Area — trophy fishing stretch. More angler traffic than recreational floaters. Worth booking specifically if smallmouth is the goal.' },
+    ],
+    landmarks:[
+      { name:'Fisher Cave (Meramec State Park)', note:'One of the few wild Missouri caves still open for hand-held lantern tours. The state park keeps it minimally lit and minimally developed — closer to actual caving than the show-cave experience down the road.' },
+      { name:'Meramec Caverns (Stanton)', note:'Missouri\'s most famous show cave. Jesse James hideout legend, Route 66 history, multi-level lighted tour. The Caveman Floating concession launches from here. Touristy but worth it once.' },
+      { name:'Onondaga Cave State Park', note:'Lesser-known sibling to Meramec State Park, with its own show cave and quieter river access. Ozark Outdoors Resort sits directly across the river. Often the best put-in for a 2-day Upper Meramec float.' },
+      { name:'Greens Cave', note:'Natural cave 1.5 miles upstream from Meramec State Park with a small creek flowing out. Easy paddle-up exploration with a flashlight. Less marked than Fisher or Onondaga, so ask the State Park concession for directions.' },
+      { name:'Limestone bluff corridor', note:'The Meramec is bluffier than its reputation suggests, especially the stretch through Meramec State Park and the Onondaga area. Peak color hits early-to-mid October — and the river runs lower and clearer in fall.' },
+    ],
+    fishing:'<strong>Fishing the Meramec:</strong> One of Missouri\'s premier smallmouth rivers, with a special-regulation trophy stretch from Scotts Ford to Birds Nest Campground (~15 mi) where fish in the 15–18" range are caught regularly. Outside the regulated section expect 8–12" smallmouth in good numbers, plus a solid population of 12–15" fish. Target root wads, fallen timber, and the heads and tails of pools where current meets slow water. A deep-diving Rebel Crawdad crankbait is the Meramec essential — locals will tell you to fish it slow and bump it off rocks. Plastic worms and grubs, crayfish-pattern crankbaits, and buzz baits all produce. The lower river picks up cool feeder springs, so summer fishing holds up better than on warmer Ozark streams.',
+    /* Outfitter map — coords are approximate, based on town/access addresses. */
+    mapCenter: [38.10, -91.20], mapZoom: 9,
+    outfitters: [
+      { name:'Meramec State Park Concessions', segment:'Lower Meramec · Sullivan',  lat:38.213, lng:-91.099, phone:'573-468-6519', website:'https://www.meramecpark.com', vessels:['canoe','kayak','raft'],          camping:true,  lodging:true,  distances:['5 mi'] },
+      { name:'3 Bridges Raft Rental',          segment:'Lower Meramec · Sullivan',  lat:38.180, lng:-91.155, phone:'573-468-7238', website:'https://www.3bridgesraft.com', vessels:['canoe','kayak','raft'],          camping:false, lodging:false },
+      { name:'Arapaho Campground',             segment:'Lower Meramec · Sullivan',  lat:38.165, lng:-91.085, phone:'573-468-3218', website:'https://arapahocampground.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false, distances:['4 mi','9 mi'] },
+      { name:'Meramec Caverns Canoe & Raft',   segment:'Lower Meramec · Stanton',   lat:38.221, lng:-91.092, phone:'573-468-6463', website:'https://www.caverncanoeandraftrental.com', vessels:['canoe','kayak','raft'], camping:true,  lodging:true,  distances:['6 mi'] },
+      { name:'Ozark Outdoors Resort',          segment:'Mid Meramec · Leasburg',    lat:38.094, lng:-91.190, phone:'573-245-6837', website:'https://ozarkoutdoorsresort.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:true  },
+      { name:'Bass River Resort',              segment:'Upper Meramec · Steelville', lat:37.952, lng:-91.358, phone:'573-786-8517', website:'https://bassresort.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:true,  distances:['6 mi','7 mi','13 mi'] },
+      { name:'Indian Springs Family Resort',   segment:'Upper Meramec · Steelville', lat:37.950, lng:-91.420, phone:'573-775-2266', website:'https://indianspringsfamilyresort.com', vessels:['canoe','kayak','raft'],          camping:true,  lodging:true  },
+      { name:'Lucky Clover River Resort',      segment:'Upper Meramec · Steelville', lat:37.970, lng:-91.360, phone:'573-775-2419', website:'https://www.luckyclovercampground.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:true  },
+      { name:'Adventure Outdoors',             segment:'Upper Meramec · Steelville', lat:37.990, lng:-91.370, phone:'573-775-5744', website:'http://adventureoutdoorcanoeing.com', vessels:['canoe','kayak','raft'],          camping:true,  lodging:false },
+    ],
   },
   elevenpoint: {
     name:"Eleven Point River", tagline:"Missouri's most remote national scenic river. Cold, clear, and genuinely wild.",
@@ -3620,6 +3873,28 @@ const RIVERS = {
     partyNote:"<strong>Party Float tip:</strong> Not ideal for a large group float — remote and quiet by design. Better for a small crew of 2–4 who appreciate solitude.",
     chillNote:'<strong>Chill Float tip:</strong> Federally designated wild and scenic. Cold spring-fed water, minimal development, real solitude. Worth the longer drive.',
     dogNote:'',
+    segments:[
+      { name:'Greer Crossing to Turner Mill', miles:'~5 mi', note:'The classic Day 1 of the Greer-to-Whitten overnight. Includes Greer Spring, the largest natural feature on the river. Cold, scenic, and the most photographed stretch of the Eleven Point.' },
+      { name:'Turner Mill to Whitten', miles:'~7 mi', note:'A relaxed one-day float through Blue Ribbon trout water. Standard takeout for the overnight crowd or a full-day option for floaters camping at Greer Crossing.' },
+      { name:'Whitten to Riverton', miles:'~8 mi', note:'Lower river day float through White Ribbon trout water — stocked rainbows with more liberal harvest rules. Water warms below Riverton, so this is the lowest practical float for most outfitters.' },
+      { name:'Thomasville to Greer Spring', miles:'~17 mi', note:'Upper river — warm water, smallmouth bass abundant. No trout up here. Multi-day or aggressive day. Not as commonly run by outfitters; ask specifically if this is what you want.' },
+      { name:'Cane Bluff to Greer', note:'Short upper-river segment. Less trafficked, scenic. Useful as a half-day option if Greer Spring is your primary destination.' },
+    ],
+    landmarks:[
+      { name:'Greer Spring', note:'The world\'s 10th largest spring. Pumps in enough water to roughly double the river\'s volume and instantly transforms it into a coldwater fishery. The spring itself is reachable via a short trail from the parking area on Hwy 19 — worth the side trip even if you\'re not floating.' },
+      { name:'Turner Mill', note:'Historic mill site and access point. The mill\'s overshot waterwheel is one of the most photographed objects on the Eleven Point. Camping available nearby.' },
+      { name:'Whitten Access', note:'Federal NFS access — the standard takeout for Day 2 of the classic overnight. Reached via Hwy 19 → AA → FS-4144. Reliable parking and a developed put-in/takeout.' },
+      { name:'The Narrows (Hwy 142)', note:'Lower-river feature where the Eleven Point passes through a tight bluff corridor. Less visited than the Greer area but among the most dramatic scenery on the river.' },
+      { name:'Greer Crossing Campground', note:'NFS campground at the Hwy 19 bridge — the most-used put-in for the overnight float and the only developed riverside camping in the upper corridor. Reserve well in advance for summer weekends.' },
+    ],
+    fishing:'<strong>Fishing the Eleven Point:</strong> Two distinct fisheries split by Greer Spring. Above Greer (Thomasville to Greer area, ~17 mi), the river is warm and smallmouth bass are abundant — recent MDC samples estimate 400–500 fish per mile, with over 10% of legal size and trophy fish present. Goggle-eye are strong here too. Below Greer, the 5.5 miles to Turner Mill is a Blue Ribbon Trout Area — rainbow trout (about 8,000 stocked annually) plus a healthy population of wild trout (~83 wild fish per mile in 2024). The next 14 miles down to Riverton (Hwy 160) are White Ribbon — stocked rainbows with more liberal harvest. If you\'re floating Greer to Riverton, bring two rigs: smallmouth gear up top, fly rod or light spinning for trout below.',
+    /* Outfitter map — coords are approximate. */
+    mapCenter: [36.74, -91.31], mapZoom: 10,
+    outfitters: [
+      { name:'Richards Canoe Rental',           segment:'Upper Eleven Point · Greer',   lat:36.785, lng:-91.337, phone:'417-778-6186', website:'http://richardscanoerentals.com', vessels:['canoe','kayak','raft'], camping:true, lodging:false },
+      { name:"Hufstedler's Camp & Canoe Rental", segment:'Lower Eleven Point · Riverton', lat:36.737, lng:-91.215, phone:'417-778-6116', website:'https://www.hufstedlers.com', vessels:['canoe','kayak','raft'], camping:true, lodging:false },
+      { name:'Eleven Point River Canoe Rental',  segment:'Lower Eleven Point · Alton',   lat:36.690, lng:-91.390, phone:'417-778-6497', website:null, vessels:['canoe','kayak'], camping:false, lodging:false },
+    ],
   },
   bigpiney: {
     name:"Big Piney River", tagline:"The Ozarks' best-kept secret. Technical, clear, and off the beaten path through Mark Twain National Forest.",
@@ -3635,6 +3910,30 @@ const RIVERS = {
     partyNote:"<strong>Party Float tip:</strong> Technical water with ledge drops — not the right river for a large casual group. Better for a small crew of capable paddlers.",
     chillNote:'<strong>Chill Float tip:</strong> One of the most rewarding and underrated rivers in Missouri for experienced paddlers who want quiet, technical water.',
     dogNote:'',
+    segments:[
+      { name:'Slabtown to Horse Camp Access', miles:'~6 mi', note:'The standard upper Big Piney day float. Drops into the start of the Smallmouth Bass Special Management Area — every fish you catch counts toward special regulations. Easier paddling than the lower river.' },
+      { name:'Slabtown to Ross Access', miles:'~15 mi', note:'Full upper-river run. Long day or easy overnight on a gravel bar. Best floated when spring rain has the river up — drops fast in summer.' },
+      { name:'Piney Landing (Devil\'s Elbow) to BSC Outdoors', miles:'~5 mi', note:'Lower river short float. Ends at Boiling Spring Campground where the Big Piney empties into the Gasconade. Passes the famous Devil\'s Elbow bend.' },
+      { name:'Blue Spring to BSC Outdoors', miles:'~8 mi', note:'Lower river full-day option, also through Devil\'s Elbow. Slightly more current than the upper Slabtown stretch and more bluff scenery.' },
+      { name:'Booker Bend (Hwy J) Access', note:'Mid-river MDC put-in/takeout. Useful for splitting the Big Piney into custom-distance segments.' },
+    ],
+    landmarks:[
+      { name:"Devil's Elbow", note:'A famously sharp bend in the river and a Route 66 landmark. The historic 1923 truss bridge is still standing and visible from the water. Genuine roadside-Americana stop just upstream of the BSC takeout.' },
+      { name:'Slabtown Spring area', note:'Marks the upstream boundary of the Smallmouth Bass Special Management Area. Multiple spring inflows below this point keep the upper Big Piney cool through summer.' },
+      { name:'Limestone bluff corridor', note:'The Big Piney is one of the bluffier underrated Ozark rivers. Imposing limestone walls run nearly the full length, with some of the best scenery in the Piney Narrows section.' },
+      { name:'Paddy Creek Recreation Area', note:'Mark Twain National Forest campground and trail system on a Big Piney tributary. Useful as base camp for floaters who want a hike-and-float weekend.' },
+      { name:'Piney River Narrows', note:'MDC natural area with one of the most dramatic bluff corridors on the river. Worth slowing down for — fish hold here too.' },
+    ],
+    fishing:'<strong>Fishing the Big Piney:</strong> One of Missouri\'s three Smallmouth Bass Special Management Areas — meaning above-average bass populations and trophy potential. From Slabtown Access downstream to the Gasconade confluence, the daily limit is 1 smallmouth with a 15" minimum, which keeps the bigger fish in the river. Most smallmouth fall in the 10–14" range, but 22-inch / 4-pound fish are confirmed in MDC samples. Target rootwads, boulder gardens, and current seams — the Big Piney\'s narrow channel concentrates fish near structure. Crankbaits in crawfish patterns, jig-and-pig combos, and tube baits all produce. Goggle-eye are abundant and provide steady action between bass. The river runs much lower in summer than spring-fed Ozark streams, so plan fishing trips for spring high water (March–May) or after a summer rain event.',
+    /* Outfitter map — coords are approximate. */
+    mapCenter: [37.75, -91.95], mapZoom: 9,
+    outfitters: [
+      { name:'BSC Outdoors (Boiling Spring Campground)', segment:'Lower Big Piney · Dixon',     lat:37.989, lng:-92.094, phone:'573-759-7294', website:'https://www.bscoutdoors.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:false, distances:['5 mi'] },
+      { name:'Devils Elbow River Safari',                segment:'Lower Big Piney · Devils Elbow', lat:37.830, lng:-92.067, phone:'573-855-4733', website:null, vessels:['canoe','kayak','raft'], camping:false, lodging:false },
+      { name:'Wilderness Ridge Resort',                  segment:'Mid Big Piney · Duke',          lat:37.660, lng:-91.970, phone:'573-435-6767', website:'https://www.wildernessridgeresort.com', vessels:['canoe','kayak','raft'], camping:true, lodging:true },
+      { name:"Peck's Last Resort",                       segment:'Mid Big Piney · Duke',          lat:37.665, lng:-91.965, phone:'573-435-6669', website:'https://www.peckslastresort.com', vessels:['canoe','kayak','raft'], camping:true, lodging:true },
+      { name:'Boiling Springs Resort',                   segment:'Upper Big Piney · Licking',     lat:37.500, lng:-91.860, phone:'573-674-3488', website:null, vessels:['canoe','kayak','raft'], camping:true, lodging:true },
+    ],
   },
   elk: {
     name:"Elk River", tagline:"Missouri's premier party float destination. Wide, warm, and built for a good time with a big group.",
@@ -3650,6 +3949,31 @@ const RIVERS = {
     partyNote:"<strong>Party Float tip:</strong> This is the one. The Elk River corridor around Noel is Missouri's most established party float scene. Multiple put-ins and outfitters, gravel bar stops, and a culture built around a big fun day on the water.",
     chillNote:"<strong>Chill Float tip:</strong> The Elk is lively on summer weekends — if you want quiet, come early on a weekday or choose a different river. The upper stretches above Noel run calmer.",
     dogNote:'<strong>Dog tip:</strong> The Elk River is one of the most dog-friendly floats in Missouri. Shallow gravel bars, warm water, and a relaxed pace make it easy to bring dogs. Most outfitters allow dogs — confirm at booking.',
+    segments:[
+      { name:'Trestle Park (Ginger Blue) to Wayside Campground (Noel)', miles:'~6 mi', note:'The default Elk River party float. Three feeder creeks keep water levels reliable all season — this is the segment to ask about if your trip is flexible. Plan a leisurely pace with multiple gravel bar stops; the river is built for it.' },
+      { name:'Trestle Bridge Float', miles:'~6 mi', note:'Seasonal alternative when the upper feeders run high enough. More scenic and quieter than the main Trestle-to-Wayside corridor. Confirm with your outfitter — water-dependent.' },
+      { name:'Cowskin Access (Hwy 43) to Pineville', note:'Upper Elk segment. Less crowded than Noel proper, slower pace. Good fishing water. Big Elk Floats handles put-ins through here.' },
+      { name:'Mt. Shira to Noel', note:'Short stretch through town ending at Shadow Lake. Mostly used as a takeout option for longer floats from Pineville or above.' },
+      { name:'12-Mile Float', miles:'~12 mi', note:'For paddlers, not partiers. Combines two of the standard 6-mile segments into a sport day. Several outfitters offer it but it requires a reasonable pace.' },
+    ],
+    landmarks:[
+      { name:'Trestle Park (Ginger Blue)', note:'The iconic Elk River put-in. Riverside park named for an old railroad trestle. Most of the popular float trips originate here.' },
+      { name:'Shadow Lake (Noel)', note:'Small impoundment in town formed by a low spillway dam. Marks the end of the Mt. Shira to Noel run and a popular swim spot.' },
+      { name:'Mt. Shira MDC Access', note:'River-right boat ramp with parking, located one mile downstream of the low-water bridge. The most reliable public takeout in the corridor.' },
+      { name:'Cowskin Access (Hwy 43 Bridge)', note:'Upper-river MDC access at mile 45.3. Standard put-in for floats targeting the quieter Pineville stretch.' },
+      { name:'Bluff Drive corridor', note:'The "Prized Drive of the Ozarks" along Highways 59 and 90 follows the river through bluff country between Noel and Pineville. Worth driving even if you\'re not floating.' },
+    ],
+    fishing:'<strong>Fishing the Elk:</strong> Widely regarded as the best trophy smallmouth river in southwestern Missouri. Unusually high numbers of bass over 15 inches — local anglers consistently bring up fish in the 18–22" range. Deep, moving water holds the biggest fish; cover (rocks, fallen timber, weed beds) concentrates them. Target the tails of long pools where current accelerates back into riffles. Goggle-eye are abundant and can salvage a slow afternoon. Big plastic creature baits, 4" tubes, crayfish-pattern crankbaits, and spinnerbaits in stained water after rain are all reliable. The Elk runs warmer than spring-fed Ozark rivers, so summer fishing is best at first light or after sundown — midday in July, the bass go deep.',
+    /* Outfitter map — coords are approximate. */
+    mapCenter: [36.57, -94.44], mapZoom: 11,
+    outfitters: [
+      { name:'River Ranch Resort',                segment:'Elk River · Noel',     lat:36.547, lng:-94.488, phone:'417-475-6121', website:'https://riverranchresort.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true, distances:['5 mi','8 mi'] },
+      { name:'Elk River Floats & Wayside Campground', segment:'Elk River · Noel', lat:36.553, lng:-94.485, phone:'417-475-3230', website:'https://www.elkriverfloats.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:false, distances:['6 mi','12 mi'] },
+      { name:'Eagles Nest Camp & Canoe',          segment:'Elk River · Noel',     lat:36.560, lng:-94.475, phone:'417-475-3326', website:'https://eaglesnestcampcanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true, distances:['6 mi','12 mi'] },
+      { name:'Two Sons Floats & Camping',         segment:'Elk River · Noel',     lat:36.575, lng:-94.480, phone:'417-475-4774', website:'https://twosonsfloats.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true },
+      { name:'Shady Beach Campground',            segment:'Elk River · Noel',     lat:36.555, lng:-94.480, phone:'417-475-6483', website:null, vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true },
+      { name:'Big Elk Floats & Camping',          segment:'Elk River · Pineville', lat:36.595, lng:-94.385, phone:'417-223-4635', website:null, vessels:['canoe','kayak','raft','tube'], camping:true, lodging:false },
+    ],
   },
   niangua: {
     name:"Niangua River", tagline:"The Ozarks' most underrated float river. Spring-fed, scenic, and the top pick for Kansas City and Springfield floaters.",
@@ -3665,6 +3989,29 @@ const RIVERS = {
     partyNote:"<strong>Party Float tip:</strong> The Niangua is a solid group float — wide enough for a big crew, easy current, and great gravel bars. Less crowded than the Meramec and closer to KC and Springfield.",
     chillNote:'<strong>Chill Float tip:</strong> The Niangua is genuinely underrated for a quiet scenic float. Bennett Spring adds a beautiful backdrop at the put-in and the bluff scenery is excellent. Bring a fishing rod.',
     dogNote:'<strong>Dog tip:</strong> The Niangua is dog-friendly with mellow current and good gravel bar access. Spring-fed water stays cooler than runoff rivers, which is easier on dogs in summer heat. Confirm with your outfitter before booking.',
+    segments:[
+      { name:'Bennett Spring State Park to Barclay Conservation Area', miles:'~4 mi', note:'The most popular short float on the Niangua and the start of the trout water. Cold, clear, and fishy. Best floated as a half-day with a fishing rod in the boat — this stretch is a White Ribbon Trout Area.' },
+      { name:'Bennett Spring to Tunnel Dam', miles:'~12 mi', note:'The classic full-day float. Spring-fed pace, scenic bluffs, and the trip the Niangua is best known for. Local outfitters all run shuttles for this stretch.' },
+      { name:'Barclay to Prosperine (Mountain Creek) Access', note:'Mid-river segment, less crowded than the upper trout corridor. The river starts to warm here and smallmouth pick up.' },
+      { name:'Bennett Spring to Lake Niangua', note:'Multi-day float ending at the impoundment formed by Tunnel Dam. Plan for an overnight gravel bar camp. The lake stretches 2¼ miles up the river and covers about 360 acres at normal pool.' },
+      { name:'Highway K-P to Bennett Spring', note:'Upper-river segment for floaters who want to start above the trout park. Quieter and less developed than the main corridor.' },
+    ],
+    landmarks:[
+      { name:'Bennett Spring', note:'One of Missouri\'s largest springs, pumping millions of gallons a day into the river. The cold spring water is what makes the Niangua a trout fishery for the first 11 miles below the park.' },
+      { name:'Bennett Spring State Park', note:'One of Missouri\'s four trout parks and home to a state hatchery. The park itself is worth a half day even if you\'re not floating — fly-fishing-only sections, a swimming pool, lodge rooms, and a famous opening-day spectacle every March 1.' },
+      { name:'Tunnel Dam (Lake Niangua)', note:'A small hydroelectric dam that creates Lake Niangua. The powerhouse is about 6.5 miles downstream of the dam itself. Marks the end of the runnable scenic stretch most floaters target.' },
+      { name:'Prosperine (Mountain Creek) Access', note:'Major mid-river state-owned access with a privately operated campground next door. Common takeout for full-day floats from Bennett Spring.' },
+      { name:'Ha Ha Tonka State Park', note:'Not on the float route itself but worth knowing about — the famous limestone landscape and castle ruins are in the lower Niangua watershed near Lake of the Ozarks. Worth tacking on if you\'re in the area.' },
+    ],
+    fishing:'<strong>Fishing the Niangua:</strong> A split-personality fishery. The 11-mile cold-water stretch below Bennett Spring is a White Ribbon Trout Area — both rainbow and brown trout, stocked regularly. Brown trout fishing is genuinely good for a Missouri river, especially early and late in the day in deep cuts under logs. Above and below the trout zone the river is excellent smallmouth water. MDC reports about 25% of smallmouth exceed the 12" legal limit and 7% are over 15" — quality fishing by any measure. Crankbaits, plastic grubs, and live worms fished tight to woody cover and boulders produce smallmouth. For trout: small inline spinners (Rooster Tail, Mepps), small minnow crankbaits, or the standard Bennett Spring fly patterns (Wooly Bugger, Pheasant Tail nymph, Scuds). Goggle-eye are also abundant.',
+    /* Outfitter map — coords are approximate. */
+    mapCenter: [37.72, -92.85], mapZoom: 12,
+    outfitters: [
+      { name:'Niangua River Oasis (NRO)',         segment:'Niangua · Lebanon · Bennett Spring', lat:37.715, lng:-92.835, phone:'417-532-6333', website:'https://nrocanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:true  },
+      { name:'Maggard Canoe & Corkery Campground', segment:'Niangua · Lebanon · Bennett Spring', lat:37.725, lng:-92.840, phone:'417-532-7616', website:'https://nianguariver.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false, distances:['10 mi'] },
+      { name:'Riverfront Campground & Canoe',     segment:'Niangua · Lebanon · Bennett Spring', lat:37.710, lng:-92.850, phone:'417-588-3386', website:'https://riverfrontcampcanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Sand Spring Resort',                segment:'Niangua · Lebanon · Bennett Spring', lat:37.740, lng:-92.860, phone:'417-532-5857', website:'https://sandspringresort.com', vessels:['canoe','raft'],                  camping:true,  lodging:true  },
+    ],
   },
   black: {
     name:'Black River', tagline:"A hidden Ozark gem. Clear, spring-fed, and beautiful — and far less crowded than the Current on a summer weekend.",
@@ -3691,6 +4038,22 @@ const RIVERS = {
       { name:'Clearwater Lake', note:'A Corps of Engineers reservoir on the Black River. The tailwater below the dam stays cold and clear year-round — good for trout fishing even in summer.' },
     ],
     fishing:'<strong>Fishing the Black River:</strong> The Black is a solid smallmouth bass river throughout the Lesterville corridor. Below Clearwater Lake the cold tailwater supports trout year-round — check the Army Corps release schedule before a fishing trip as flows vary significantly. Standard Ozark river tactics apply: inline spinners, small crankbaits, and Ned rigs for smallmouth.',
+    /* Outfitter map — coords are approximate. Lesterville cluster is grouped around the
+       Lesterville float corridor; precision here is good enough for the cluster view but
+       individual pins may be off by a block. Refine via Google Maps when convenient. */
+    mapCenter: [37.35, -90.80], mapZoom: 9,
+    outfitters: [
+      { name:'Bearcat Getaway',                          segment:'Upper Black · Lesterville', lat:37.555, lng:-90.825, phone:'573-637-2264', website:'https://www.bearcatgetaway.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:true  },
+      { name:'Black River Outfitters at Horseshoe Ranch', segment:'Upper Black · Lesterville', lat:37.560, lng:-90.830, phone:'573-637-2302', website:'https://www.blackrivercampground.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Deer Creek Campground',                    segment:'Upper Black · Lesterville', lat:37.553, lng:-90.815, phone:'573-637-2255', website:'https://www.deercreekcg.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Franklin Floats',                          segment:'Upper Black · Lesterville', lat:37.548, lng:-90.820, phone:'573-637-2205', website:'https://www.franklinsfloats.com/', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Parks Bluff Campground',                   segment:'Upper Black · Lesterville', lat:37.545, lng:-90.823, phone:'573-637-2290', website:'https://www.parksbluff.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Riversedge Campground',                    segment:'Upper Black · Lesterville', lat:37.537, lng:-90.834, phone:'573-637-2422', website:'https://www.riversedgeblackriver.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Twin Rivers Landing',                      segment:'Upper Black · Lesterville', lat:37.550, lng:-90.828, phone:'573-637-2274', website:'https://www.twinriversmo.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:false },
+      { name:'Wilderness Lodge',                         segment:'Upper Black · Lesterville', lat:37.535, lng:-90.836, phone:'573-637-2295', website:'https://www.wildernesslodgeresortltd.com', vessels:['canoe','kayak','raft','tube'], camping:true,  lodging:true  },
+      { name:"Jeff's Canoe Rentals",                     segment:'Mid Black · Annapolis',     lat:37.355, lng:-90.745, phone:'573-598-4555', website:'https://www.jeffscanoerental.com', vessels:['canoe','kayak','raft'],         camping:false, lodging:false, distances:['6 mi','11 mi'] },
+      { name:'Kempers Hideaway Resort',                  segment:'Lower Black · Piedmont',    lat:37.130, lng:-90.795, phone:'573-223-7324', website:'https://www.cityofpiedmont.com/parks-resorts-loding/page/kempers-hideaway-resort-camping-cabins', vessels:['canoe','raft'],                camping:true,  lodging:true  },
+    ],
   },
   huzzah: {
     name:'Huzzah River', tagline:"Missouri's high-energy party float. Narrow, twisty, crystal clear — and on a summer Saturday, an absolute tailgate on the water.",
@@ -3716,6 +4079,14 @@ const RIVERS = {
       { name:'Courtois confluence', note:'Where the Courtois Creek joins the Huzzah. If you started on the quiet Courtois, this is where the energy picks up. A natural transition point on the best-of-both overnight route.' },
     ],
     fishing:'<strong>Fishing the Huzzah:</strong> The Huzzah holds smallmouth bass in the deeper holes and bends. Fishing on a summer weekend is difficult given the float traffic. Best approached on weekday mornings in late spring or early fall when the river is quiet.',
+    /* Outfitter map — coords are approximate. The Huzzah/Courtois corridor is served by a tight Steelville cluster of resort outfitters. */
+    mapCenter: [37.95, -91.36], mapZoom: 12,
+    outfitters: [
+      { name:'Huzzah Valley Resort',     segment:'Huzzah · Steelville', lat:37.950, lng:-91.360, phone:'800-367-4516', website:'https://huzzahvalley.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true },
+      { name:"Bass' River Resort",       segment:'Huzzah · Steelville', lat:37.952, lng:-91.358, phone:'573-786-8517', website:'https://bassresort.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true, distances:['6 mi','7 mi','13 mi'] },
+      { name:"Garrison's River Resort",  segment:'Huzzah · Steelville', lat:37.970, lng:-91.370, phone:'573-775-2410', website:'https://www.garrisonscanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:false },
+      { name:'The Rafting Co',           segment:'Huzzah · Steelville', lat:37.945, lng:-91.340, phone:'573-775-2628', website:'https://www.theraftingco.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true },
+    ],
   },
   courtois: {
     name:'Courtois Creek', tagline:"Pronounced CO-tuh-way. The Huzzah's quiet twin. Narrow, technical, stunningly beautiful — and a natural filter that keeps the rowdy crowds away.",
@@ -3741,6 +4112,14 @@ const RIVERS = {
       { name:'Gravel bar camping spots', note:'The Courtois has excellent gravel bar camping throughout. Remote feel even though civilization is close. Best overnight in late spring when water levels support a full run.' },
     ],
     fishing:'<strong>Fishing the Courtois:</strong> The Courtois is excellent smallmouth water — the technical terrain and light float traffic mean fish are less pressured than on the Huzzah. Spring and early summer are best before the river drops. Short rods are strongly recommended given the narrow, brushy channel. A 4–5 foot rod handles the tight bends far better than a standard length.',
+    /* Outfitter map — coords are approximate. Courtois shares the Steelville outfitter cluster with the Huzzah. */
+    mapCenter: [37.95, -91.36], mapZoom: 12,
+    outfitters: [
+      { name:'Huzzah Valley Resort',     segment:'Courtois · Steelville', lat:37.950, lng:-91.360, phone:'800-367-4516', website:'https://huzzahvalley.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true },
+      { name:"Bass' River Resort",       segment:'Courtois · Steelville', lat:37.952, lng:-91.358, phone:'573-786-8517', website:'https://bassresort.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true },
+      { name:"Garrison's River Resort",  segment:'Courtois · Steelville', lat:37.970, lng:-91.370, phone:'573-775-2410', website:'https://www.garrisonscanoe.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:false },
+      { name:'The Rafting Co',           segment:'Courtois · Steelville', lat:37.945, lng:-91.340, phone:'573-775-2628', website:'https://www.theraftingco.com', vessels:['canoe','kayak','raft','tube'], camping:true, lodging:true },
+    ],
   },
 };
 
@@ -4319,6 +4698,24 @@ function toggleDrawer(key, btn) {
         </a>
       </div>`;
 
+    /* Outfitter Map */
+    if (r.outfitters && r.outfitters.length) {
+      html += `
+        <div class="rv-drawer-section">
+          <p class="rv-drawer-label">All Outfitters on the ${r.name.replace(' River','').replace(' Creek','')}</p>
+          <div class="rv-drawer-map-wrap">
+            <div class="rv-drawer-map" id="rvm-${key}" role="application" aria-label="Map of ${r.name} outfitters"></div>
+            <p class="rv-drawer-map-note">${r.outfitters.length} outfitter${r.outfitters.length===1?'':'s'} shown. Tap a marker for phone, website, and directions. Pricing and hours change seasonally — confirm directly with the outfitter before booking.</p>
+          </div>
+        </div>`;
+    } else if (r.mapCenter) {
+      html += `
+        <div class="rv-drawer-section">
+          <p class="rv-drawer-label">All Outfitters on the ${r.name.replace(' River','').replace(' Creek','')}</p>
+          <p class="rv-drawer-map-empty">Outfitter map coming soon. For now, tap <strong>Book a Float</strong> above to reach ${r.outName}.</p>
+        </div>`;
+    }
+
     /* Party + Chill tips */
     html += `
       <div class="rv-drawer-section">
@@ -4388,8 +4785,203 @@ function toggleDrawer(key, btn) {
   btn.setAttribute('aria-expanded','true');
   btn.innerHTML = 'Close <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
 
+  /* Init outfitter map (lazy — only when drawer opens with outfitters) */
+  if (r.outfitters && r.outfitters.length && !drawer.dataset.mapInit) {
+    drawer.dataset.mapInit = '1';
+    initRiverMap(key, r);
+  }
+
   /* Scroll card into view smoothly */
   setTimeout(() => card.scrollIntoView({ behavior:'smooth', block:'nearest' }), 50);
+}
+
+/* ── OUTFITTER MAP (Leaflet, lazy-loaded) ── */
+let _leafletPromise = null;
+function loadLeaflet() {
+  if (_leafletPromise) return _leafletPromise;
+  _leafletPromise = new Promise((resolve, reject) => {
+    if (window.L) return resolve(window.L);
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(css);
+    const js = document.createElement('script');
+    js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    js.onload = () => resolve(window.L);
+    js.onerror = reject;
+    document.head.appendChild(js);
+  });
+  return _leafletPromise;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function buildOutfitterPopup(o) {
+  const tel = o.phone ? o.phone.replace(/[^0-9]/g,'') : '';
+  const dirUrl = `https://www.google.com/maps/dir/?api=1&destination=${o.lat},${o.lng}`;
+  const reviewsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(o.name + ' ' + (o.segment || ''))}`;
+  const vessels = (o.vessels && o.vessels.length) ? o.vessels.map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(' · ') : '';
+  const stay = [o.camping ? 'Camping' : null, o.lodging ? 'Lodging' : null].filter(Boolean).join(' · ');
+  const meta = [vessels, stay].filter(Boolean).join('<br>');
+  return `
+    <div class="pop-name">${escapeHtml(o.name)}</div>
+    ${o.segment ? `<div class="pop-segment">${escapeHtml(o.segment)}</div>` : ''}
+    ${meta ? `<div class="pop-meta">${meta}</div>` : ''}
+    ${o.phone ? `<div class="pop-meta"><a href="tel:${tel}" style="color:var(--rust);text-decoration:none;font-weight:600;">${escapeHtml(o.phone)}</a></div>` : ''}
+    <div class="pop-actions">
+      ${o.website ? `<a class="pop-btn pop-btn-primary" href="${escapeHtml(o.website)}" target="_blank" rel="noopener">Website</a>` : ''}
+      <a class="pop-btn pop-btn-secondary" href="${dirUrl}" target="_blank" rel="noopener">Directions</a>
+      <a class="pop-btn pop-btn-secondary" href="${reviewsUrl}" target="_blank" rel="noopener">Reviews</a>
+    </div>`;
+}
+
+/* River display order for the standalone Outfitter Maps section */
+const OUTFITTER_MAP_ORDER = ['black','current','jacksfork','meramec','elevenpoint','bigpiney','elk','niangua','huzzah','courtois'];
+
+function buildOutfitterMapTabs() {
+  const tabsEl = document.getElementById('om-tabs');
+  if (!tabsEl) return;
+  let firstActiveKey = null;
+  const html = OUTFITTER_MAP_ORDER.map(key => {
+    const r = RIVERS[key];
+    if (!r) return '';
+    const count = (r.outfitters && r.outfitters.length) || 0;
+    const hasData = count > 0;
+    if (hasData && !firstActiveKey) firstActiveKey = key;
+    const label = r.name.replace(' River','').replace(' Creek','');
+    return `<button class="om-tab${hasData ? '' : ''}" role="tab" data-river="${key}" ${hasData ? '' : 'disabled aria-disabled="true"'} aria-selected="false">${label}${hasData ? `<span class="om-tab-count">(${count})</span>` : `<span class="om-tab-count">(soon)</span>`}</button>`;
+  }).join('');
+  tabsEl.innerHTML = html;
+  tabsEl.querySelectorAll('.om-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      selectOutfitterMap(btn.dataset.river);
+    });
+  });
+  return firstActiveKey;
+}
+
+let _omMap = null;
+let _omMarkers = [];
+function selectOutfitterMap(key) {
+  const r = RIVERS[key];
+  if (!r || !r.outfitters || !r.outfitters.length) return;
+  /* Update tab states */
+  document.querySelectorAll('.om-tab').forEach(btn => {
+    const isActive = btn.dataset.river === key;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', String(isActive));
+  });
+  /* Update meta line */
+  const metaEl = document.getElementById('om-meta');
+  if (metaEl) {
+    metaEl.textContent = `${r.outfitters.length} outfitter${r.outfitters.length===1?'':'s'} on the ${r.name}. Tap a marker for phone, website, and directions.`;
+  }
+  loadLeaflet().then(L => {
+    const el = document.getElementById('om-map');
+    if (!el) return;
+    if (!_omMap) {
+      _omMap = L.map(el, { scrollWheelZoom:false }).setView(r.mapCenter || [r.outfitters[0].lat, r.outfitters[0].lng], r.mapZoom || 10);
+      L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://opentopomap.org">OpenTopoMap</a> · © <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+        maxZoom: 17
+      }).addTo(_omMap);
+    } else {
+      /* Clear existing markers */
+      _omMarkers.forEach(m => _omMap.removeLayer(m));
+      _omMarkers = [];
+    }
+    const icon = L.divIcon({
+      className: 'rv-marker',
+      html: '<div style="width:24px;height:24px;border-radius:50%;background:#B5421C;border:3px solid #FFFFFF;box-shadow:0 2px 6px rgba(0,0,0,0.35);"></div>',
+      iconSize: [24,24],
+      iconAnchor: [12,12],
+      popupAnchor: [0,-12]
+    });
+    const bounds = [];
+    r.outfitters.forEach(o => {
+      const m = L.marker([o.lat, o.lng], { icon, title: o.name }).addTo(_omMap);
+      m.bindPopup(buildOutfitterPopup(o), { maxWidth: 280, minWidth: 220 });
+      _omMarkers.push(m);
+      bounds.push([o.lat, o.lng]);
+    });
+    if (bounds.length > 1) {
+      _omMap.fitBounds(bounds, { padding: [40,40] });
+    } else if (bounds.length === 1) {
+      _omMap.setView(bounds[0], 12);
+    }
+    setTimeout(() => _omMap.invalidateSize(), 80);
+  }).catch(err => {
+    console.error('Outfitter map (section) failed to load:', err);
+    const el = document.getElementById('om-map');
+    if (el) el.innerHTML = '<div style="padding:1rem;font-size:var(--t-sm);color:var(--ink-50);text-align:center;">Map unavailable. Refresh the page to try again.</div>';
+  });
+}
+
+/* On page load: build the tabs, auto-select the first river that has data */
+document.addEventListener('DOMContentLoaded', () => {
+  const firstKey = buildOutfitterMapTabs();
+  if (firstKey) {
+    /* Lazy: only init the map when the section is scrolled into view */
+    const sect = document.getElementById('outfitter-maps-section');
+    if (!sect) { selectOutfitterMap(firstKey); return; }
+    if ('IntersectionObserver' in window) {
+      let triggered = false;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !triggered) {
+            triggered = true;
+            selectOutfitterMap(firstKey);
+            io.disconnect();
+          }
+        });
+      }, { rootMargin: '200px' });
+      io.observe(sect);
+    } else {
+      selectOutfitterMap(firstKey);
+    }
+  }
+});
+
+function initRiverMap(key, r) {
+  loadLeaflet().then(L => {
+    const el = document.getElementById(`rvm-${key}`);
+    if (!el || !r.outfitters || !r.outfitters.length) return;
+    const center = r.mapCenter || [r.outfitters[0].lat, r.outfitters[0].lng];
+    const zoom = r.mapZoom || 11;
+    const map = L.map(el, { scrollWheelZoom:false }).setView(center, zoom);
+    /* OpenTopoMap — outdoor / terrain look that fits the brand */
+    L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://opentopomap.org">OpenTopoMap</a> · © <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+      maxZoom: 17
+    }).addTo(map);
+    /* Brand-colored marker */
+    const icon = L.divIcon({
+      className: 'rv-marker',
+      html: '<div style="width:24px;height:24px;border-radius:50%;background:#B5421C;border:3px solid #FFFFFF;box-shadow:0 2px 6px rgba(0,0,0,0.35);"></div>',
+      iconSize: [24,24],
+      iconAnchor: [12,12],
+      popupAnchor: [0,-12]
+    });
+    const bounds = [];
+    r.outfitters.forEach(o => {
+      const m = L.marker([o.lat, o.lng], { icon, title: o.name }).addTo(map);
+      m.bindPopup(buildOutfitterPopup(o), { maxWidth: 280, minWidth: 220 });
+      bounds.push([o.lat, o.lng]);
+    });
+    /* Fit to all markers if more than one, with padding */
+    if (bounds.length > 1) {
+      map.fitBounds(bounds, { padding: [30,30] });
+    }
+    /* Re-render on first interaction (Leaflet sometimes needs a nudge after being inserted into a hidden container) */
+    setTimeout(() => map.invalidateSize(), 100);
+  }).catch(err => {
+    console.error('Outfitter map failed to load:', err);
+    const el = document.getElementById(`rvm-${key}`);
+    if (el) el.innerHTML = '<div style="padding:1rem;font-size:var(--t-sm);color:var(--ink-50);text-align:center;">Map unavailable. Refresh the page to try again.</div>';
+  });
 }
 document.querySelectorAll('.cl-check').forEach(box => {
   function toggle() {

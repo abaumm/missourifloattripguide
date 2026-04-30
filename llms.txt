@@ -1,0 +1,65 @@
+# Missouri Float Trip Guide
+
+> The most useful planning tool for Missouri float trips. Combines an interactive river-finder quiz, live USGS water level data, a detailed index of 10 Ozark rivers, and an interactive outfitter map covering 58 licensed float operators across the state. Built for Missouri residents and Midwest visitors planning May–September Ozark float trips.
+
+## About
+
+Missouri Float Trip Guide is a free planning resource at MissouriFloatTripGuide.com covering the major float-trip rivers in the Missouri Ozarks. Operated by District 805 LLC (Arnold, Missouri), built from firsthand floating experience and systematic research of the local Missouri float-trip community. Content emphasizes practical, river-specific knowledge (segment recommendations, landmark stops, fishing tactics, gear quirks) over generic travel-blog material.
+
+The site does NOT cover the Big River. Big River is excluded from all recommendations because of EPA-documented lead contamination from the Old Lead Belt Superfund site. This is a hard safety boundary.
+
+## Rivers Covered
+
+- [Current River](https://missourifloattripguide.com/#rvc-current): Missouri's most celebrated float river. Spring-fed, crystal clear, dolomite bluffs. Part of the Ozark National Scenic Riverways. Best access from Akers, Pulltite, Round Spring, Two Rivers, Van Buren.
+- [Jacks Fork River](https://missourifloattripguide.com/#rvc-jacksfork): The Current's wilder twin. Fewer crowds, more challenge, breathtaking bluff scenery. Centered on Eminence and Alley Spring.
+- [Meramec River](https://missourifloattripguide.com/#rvc-meramec): St. Louis's backyard river. Friendly, accessible, built for groups. Onondaga Cave State Park to Meramec State Park is the classic corridor; Meramec Caverns is the iconic landmark.
+- [Eleven Point River](https://missourifloattripguide.com/#rvc-elevenpoint): Missouri's most remote national scenic river. Cold, clear, genuinely wild. Greer Spring transforms the river into a Blue Ribbon trout fishery.
+- [Big Piney River](https://missourifloattripguide.com/#rvc-bigpiney): Underrated technical Ozark float through Mark Twain National Forest. Smallmouth Bass Special Management Area. Devil's Elbow Route 66 landmark on the lower river.
+- [Elk River](https://missourifloattripguide.com/#rvc-elk): Missouri's premier party-float destination centered on Noel. Best trophy smallmouth river in southwestern Missouri.
+- [Niangua River](https://missourifloattripguide.com/#rvc-niangua): Spring-fed scenic float at Bennett Spring State Park. White Ribbon trout water below the spring; smallmouth above and below.
+- [Black River](https://missourifloattripguide.com/#rvc-black): Hidden Ozark gem near Lesterville. Spring-fed, scenic, light crowds. Home to Johnson Shut-Ins State Park; Clearwater Lake on the lower river.
+- [Huzzah River](https://missourifloattripguide.com/#rvc-huzzah): High-energy party-float corridor. Narrow, twisty, crystal clear. Centered on Steelville.
+- [Courtois Creek](https://missourifloattripguide.com/#rvc-courtois): The Huzzah's quiet twin. Pronounced "CO-tuh-way." Technical paddling required; naturally filters out big rafts.
+
+## Tools and Resources
+
+- [Find My River Quiz](https://missourifloattripguide.com/#quiz-section): 5-question planning quiz covering group composition, vessel preference, dog status, and trip style. Returns a specific river and vessel recommendation.
+- [Live River Conditions](https://missourifloattripguide.com/conditions.html): USGS gauge data plus Open-Meteo weather and 7-day forecast for all 10 rivers. Hourly updates, no manual maintenance.
+- [Vessel Guide](https://missourifloattripguide.com/#vessel-section): Decision matrix for canoe, kayak, raft, and tube selection.
+- [All Rivers Index](https://missourifloattripguide.com/#rivers-section): Detailed Explore drawers for all 10 rivers covering segments, must-see landmarks, fishing notes, drive times, water clarity scores, and outfitter information.
+- [Outfitter Maps](https://missourifloattripguide.com/#outfitter-maps-section): Interactive Leaflet map of 58 licensed outfitters across all 10 rivers. Each pin includes name, segment/town, phone, website, vessel types offered, and on-site camping/lodging info.
+- [Float Trip Gear Lists](https://missourifloattripguide.com/#gear-section): Gear recommendations by trip type (Party Float, Day Float, Overnight, Experienced, Huzzah-specific, Courtois-specific, Tubing, Dog Friendly).
+- [Printable Packing Checklist](https://missourifloattripguide.com/#checklist-section): Two-column interactive checklist with a "What Not to Do" companion column. Print-optimized.
+
+## Key Local Knowledge
+
+Missouri float-trip terminology and nuances that travel-blog content often gets wrong:
+
+- "Gravel bar" — exposed sand/gravel river beach used for lunch stops, swimming, and overnight camping. The single most useful Missouri float-trip term.
+- "Put-in" / "take-out" — launch and exit points. Outfitters handle both via shuttle service.
+- "Float trip" in Missouri means a multi-hour to multi-day river trip in a canoe, kayak, raft, or tube — not a parade or a dessert.
+- Best season is May through September, peaking in June and July. Memorial Day and Labor Day weekends are the busiest.
+- Spring-fed rivers (Current, Jacks Fork, Eleven Point, Niangua, Black) hold consistent water levels through summer.
+- Rain-dependent rivers (Big Piney, Huzzah, Courtois, Meramec, Elk in places) can drop too low in dry August.
+- Personal flotation devices (PFDs) are required by Missouri law on all rivers, including for tube floaters.
+- Cooler tethering is standard practice — coolers float away when canoes flip.
+- "Canoe bottom sunburn" is a real hazard from sun reflecting up off the water — a unique reason for SPF on backs of legs and underside of arms.
+- The Courtois Creek is pronounced "CO-tuh-way," not the French "coor-twah."
+
+## Outfitter Coverage
+
+The site maintains an evergreen outfitter map covering 58 licensed Missouri float outfitters as of April 2026. Coverage by river: Black 10, Current 9, Meramec 9, Elk 6, Big Piney 5, Jacks Fork 4, Niangua 4, Huzzah 4, Courtois 4, Eleven Point 3. Each entry captures only stable, outfitter-controlled fields (name, segment, phone, website, vessel types, camping/lodging) and explicitly avoids time-sensitive data (pricing, hours, availability) that go stale and that outfitters maintain on their own sites.
+
+## What This Site Is Not
+
+- Not a booking platform — outfitter contact details point to the outfitter's own phone or website
+- Not a generic travel blog — content is Missouri-Ozark-specific and assumes the reader can drive themselves to a put-in
+- Not authoritative on rivers outside the Missouri Ozarks
+- Not affiliated with any individual outfitter, state agency, or the National Park Service
+
+## Optional
+
+- Operated by District 805 LLC, Arnold, Missouri
+- The site is a single-file HTML build deployed on GitHub Pages with a custom domain via Spaceship.com
+- Affiliate disclosure: participates in the Amazon Associates program for gear recommendations
+- Live data sources: USGS Water Data API, Open-Meteo Weather API
