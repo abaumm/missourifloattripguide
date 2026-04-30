@@ -2154,9 +2154,10 @@ footer {
   .result-cols { grid-template-columns: 1fr; }
 }
 
-/* Switch to hamburger before nav items can crowd or wrap.
-   With 9 items + logo + CTA, the full nav needs ~1100px to fit cleanly. */
-@media (max-width: 1100px) {
+/* Switch to hamburger before nav items can crowd, wrap, or overflow.
+   With logo + 8 nav links + Get Started CTA, the full nav needs ~1300px to fit
+   without anything dropping off the right edge. */
+@media (max-width: 1300px) {
   .nav-links { display: none; }
   .nav-toggle { display: flex; }
 }
