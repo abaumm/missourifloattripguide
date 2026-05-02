@@ -425,44 +425,57 @@ ul, ol { list-style: none; }
   line-height: 1.4;
 }
 
-/* Scroll indicator */
-.hero-scroll {
+/* Scroll indicator — hidden in favor of water ripple effect below.
+   To restore: remove `display:none` from .hero-scroll. */
+.hero-scroll { display: none; }
+
+/* ─── Hero water ripples — subtle horizontal shimmer above tree line ─── */
+.hero-ripples {
   position: absolute;
-  bottom: 2rem;
-  right: var(--side);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 2;
-}
-.hero-scroll span {
-  font-size: var(--t-xs);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  writing-mode: vertical-rl;
-}
-.scroll-line {
-  width: 1px;
-  height: 3rem;
-  background: rgba(255,255,255,0.2);
-  position: relative;
-  overflow: hidden;
-}
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  top: -100%;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.6);
-  animation: scrollDrop 2s ease-in-out infinite;
+  right: 0;
+  bottom: 26%;     /* sit just above the tree silhouette band */
+  height: 22%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.85;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
 }
-@keyframes scrollDrop {
-  0%   { top: -100%; }
-  100% { top: 200%; }
+.hero-ripples svg {
+  position: absolute;
+  left: -15%;
+  width: 130%;
+  height: 100%;
+  display: block;
+}
+.hero-ripples .ripple {
+  fill: none;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+.hero-ripples .ripple-1 {
+  stroke: rgba(255,255,255,0.45);
+  animation: rippleDrift 9s ease-in-out infinite;
+}
+.hero-ripples .ripple-2 {
+  stroke: rgba(255,255,255,0.30);
+  animation: rippleDrift 13s ease-in-out infinite reverse;
+}
+.hero-ripples .ripple-3 {
+  stroke: rgba(255,255,255,0.20);
+  animation: rippleDrift 17s ease-in-out infinite;
+  animation-delay: -6s;
+}
+@keyframes rippleDrift {
+  0%, 100% { transform: translate3d(-6%, 0, 0); }
+  50%      { transform: translate3d(6%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ripples .ripple { animation: none; }
 }
 
 /* ─────────────────────────────────────────
@@ -908,6 +921,29 @@ ul, ol { list-style: none; }
 .persona-note.chill svg { color: #7BB8C4; }
 .persona-note p { font-size: var(--t-sm); color: rgba(255,255,255,0.9); line-height: 1.65; font-weight: 400; }
 .persona-note strong { color: var(--white); font-weight: 600; }
+
+/* Deep-link from result hero to the dedicated river page */
+.result-deeplink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.625rem 1.125rem;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  color: rgba(255,255,255,0.92);
+  font-family: var(--sans);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.result-deeplink:hover, .result-deeplink:focus-visible {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.6);
+  outline: none;
+}
+.result-deeplink svg { width: 0.875rem; height: 0.875rem; stroke: currentColor; stroke-width: 2.5; fill: none; }
 
 /* Result body content */
 .result-body {
@@ -1783,6 +1819,91 @@ ul, ol { list-style: none; }
 .vessel-result-tip strong { color: var(--ink-70); font-weight: 600; }
 
 /* ─────────────────────────────────────────
+   SHARE ROW — bottom-of-page social sharing
+───────────────────────────────────────── */
+.share-row {
+  background: var(--cream);
+  border-top: 1px solid var(--ink-08);
+  padding: clamp(2rem, 4vw, 3rem) var(--side);
+}
+.share-row__inner {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+.share-row__label {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+.share-row__sub {
+  font-size: var(--t-sm);
+  color: var(--ink-50);
+  margin: -0.5rem 0 0;
+  font-weight: 400;
+}
+.share-row__btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: var(--white);
+  color: var(--ink);
+  border: 1px solid var(--ink-08);
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease, color 0.18s ease;
+  white-space: nowrap;
+}
+.share-btn:hover,
+.share-btn:focus-visible {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+  outline: none;
+}
+.share-btn:focus-visible { box-shadow: 0 0 0 3px rgba(26,26,24,0.15); }
+.share-btn svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.share-btn[data-share="x"] svg,
+.share-btn[data-share="facebook"] svg { fill: currentColor; stroke: none; }
+.share-btn[data-share="copy"].is-copied {
+  background: #1B5E1B;
+  color: var(--white);
+  border-color: #1B5E1B;
+}
+.share-btn[data-share="native"] { display: none; }   /* JS reveals if supported */
+@media (max-width: 480px) {
+  .share-btn span { display: none; }
+  .share-btn { padding: 0.625rem; }
+}
+
+/* ─────────────────────────────────────────
    FOOTER
 ───────────────────────────────────────── */
 .disc {
@@ -2386,9 +2507,9 @@ footer {
       <li><a href="/conditions.html">River Conditions</a></li>
       <li><a href="#vessel-section">Vessel Guide</a></li>
       <li><a href="#levels-section">Live Levels</a></li>
-      <li><a href="#rivers-section">All Rivers</a></li>
+      <li><a href="/rivers/">All Rivers</a></li>
       <li><a href="#outfitter-maps-section">Outfitter Maps</a></li>
-      <li><a href="#gear-section">Gear Lists</a></li>
+      <li><a href="/gear/">Gear Lists</a></li>
       <li><a href="#checklist-section">Packing List</a></li>
       <li><a href="#quiz-section" class="nav-cta">Get Started</a></li>
     </ul>
@@ -2401,9 +2522,9 @@ footer {
     <a href="/conditions.html">River Conditions</a>
     <a href="#vessel-section">Vessel Guide</a>
     <a href="#levels-section">Live Levels</a>
-    <a href="#rivers-section">All Rivers</a>
+    <a href="/rivers/">All Rivers</a>
     <a href="#outfitter-maps-section">Outfitter Maps</a>
-    <a href="#gear-section">Gear Lists</a>
+    <a href="/gear/">Gear Lists</a>
     <a href="#checklist-section">Packing List</a>
   </nav>
 </header>
@@ -2446,6 +2567,14 @@ footer {
         </span>
       </button>
     </div>
+  </div>
+
+  <div class="hero-ripples" aria-hidden="true">
+    <svg viewBox="0 0 1200 240" preserveAspectRatio="none">
+      <path class="ripple ripple-1" d="M0,80 C150,72 300,96 450,82 C600,68 750,90 900,78 C1050,66 1150,84 1200,80"/>
+      <path class="ripple ripple-2" d="M0,130 C180,118 320,144 480,128 C640,112 780,138 940,124 C1080,112 1170,134 1200,130"/>
+      <path class="ripple ripple-3" d="M0,180 C160,170 340,194 500,178 C660,162 820,186 980,172 C1100,162 1180,182 1200,180"/>
+    </svg>
   </div>
 
   <div class="hero-scroll" aria-hidden="true">
@@ -2876,6 +3005,12 @@ footer {
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <p id="result-persona-text"></p>
       </div>
+      <div>
+        <a href="#" id="result-deeplink" class="result-deeplink">
+          <span id="result-deeplink-text">Read the full guide</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -2939,7 +3074,7 @@ footer {
             <p class="gear-card-sub" id="gear-sub"></p>
           </div>
           <ul class="gear-list" id="gear-list" aria-label="Recommended gear with Amazon links"></ul>
-          <p class="gear-aff">Affiliate links — prices and availability set by Amazon. See disclosure below.</p>
+          <p class="gear-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
         </div>
 
         <div class="result-side">
@@ -2996,10 +3131,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 3 days</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('current',this)" aria-expanded="false" aria-label="Explore Current River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/current-river/" aria-label="Explore Current River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-current"></div>
       </article>
 
@@ -3020,10 +3152,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">1 – 2 days</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('jacksfork',this)" aria-expanded="false" aria-label="Explore Jacks Fork River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/jacks-fork/" aria-label="Explore Jacks Fork River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-jacksfork"></div>
       </article>
 
@@ -3045,10 +3174,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 1 day</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('meramec',this)" aria-expanded="false" aria-label="Explore Meramec River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/meramec-river/" aria-label="Explore Meramec River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-meramec"></div>
       </article>
 
@@ -3069,10 +3195,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">1 – 3 days</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('elevenpoint',this)" aria-expanded="false" aria-label="Explore Eleven Point River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/eleven-point/" aria-label="Explore Eleven Point River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-elevenpoint"></div>
       </article>
 
@@ -3093,10 +3216,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 2 days</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('bigpiney',this)" aria-expanded="false" aria-label="Explore Big Piney River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/big-piney/" aria-label="Explore Big Piney River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-bigpiney"></div>
       </article>
 
@@ -3117,10 +3237,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 1 day</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('elk',this)" aria-expanded="false" aria-label="Explore Elk River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/elk-river/" aria-label="Explore Elk River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-elk"></div>
       </article>
 
@@ -3142,10 +3259,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 2 days</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('niangua',this)" aria-expanded="false" aria-label="Explore Niangua River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/niangua-river/" aria-label="Explore Niangua River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-niangua"></div>
       </article>
 
@@ -3167,10 +3281,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 2 days</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('black',this)" aria-expanded="false" aria-label="Explore Black River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/black-river/" aria-label="Explore Black River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-black"></div>
       </article>
 
@@ -3191,10 +3302,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 1 day</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('huzzah',this)" aria-expanded="false" aria-label="Explore Huzzah River details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/huzzah-river/" aria-label="Explore Huzzah River details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-huzzah"></div>
       </article>
 
@@ -3216,10 +3324,7 @@ footer {
             <div class="rv-mi"><span class="rv-mi-val">½ – 2 days</span><span class="rv-mi-key">Trip Length</span></div>
           </div>
         </div>
-        <button class="rv-explore-btn" onclick="toggleDrawer('courtois',this)" aria-expanded="false" aria-label="Explore Courtois Creek details">
-          Explore This River
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
+        <a class="rv-explore-btn" href="/rivers/courtois-creek/" aria-label="Explore Courtois Creek details">Explore This River <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <div class="rv-drawer" id="rvd-courtois"></div>
       </article>
 
@@ -3261,7 +3366,8 @@ footer {
         <p class="gear-panel-sub">Everything for a great day on the water with a big group.</p>
       </div>
       <ul class="gear-section-list" id="gs-party" aria-label="Party float gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/party-float/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
     <div id="panel-beginner" class="gear-panel" role="tabpanel" aria-labelledby="tab-beginner">
@@ -3270,7 +3376,8 @@ footer {
         <p class="gear-panel-sub">The essentials for a half-day or full-day float. Good starting point for first-timers.</p>
       </div>
       <ul class="gear-section-list" id="gs-beginner" aria-label="Day float gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/day-float/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
     <div id="panel-overnight" class="gear-panel" role="tabpanel" aria-labelledby="tab-overnight">
@@ -3279,7 +3386,8 @@ footer {
         <p class="gear-panel-sub">Everything you need to float in, camp on a gravel bar, and float out. Includes satellite communicator for remote Ozark stretches.</p>
       </div>
       <ul class="gear-section-list" id="gs-overnight" aria-label="Overnight float gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/overnight-float/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
     <div id="panel-experienced" class="gear-panel" role="tabpanel" aria-labelledby="tab-experienced">
@@ -3288,7 +3396,8 @@ footer {
         <p class="gear-panel-sub">Safety and performance gear for Class II–III water. Built for technical rivers like the Big Piney and Jacks Fork.</p>
       </div>
       <ul class="gear-section-list" id="gs-experienced" aria-label="Experienced paddler gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/experienced-paddler/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
     <div id="panel-dog" class="gear-panel" role="tabpanel" aria-labelledby="tab-dog">
@@ -3297,7 +3406,8 @@ footer {
         <p class="gear-panel-sub">Everything you need to bring your dog safely. Best rivers for dogs: Current River, Meramec, Elk River, and Niangua.</p>
       </div>
       <ul class="gear-section-list" id="gs-dog" aria-label="Dog float gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/dog-friendly-float/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
     <div id="panel-huzzah" class="gear-panel" role="tabpanel" aria-labelledby="tab-huzzah">
@@ -3306,7 +3416,8 @@ footer {
         <p class="gear-panel-sub">Narrow river essentials — patch kit, waterproof hard case, and social gear for Missouri's premier party float.</p>
       </div>
       <ul class="gear-section-list" id="gs-huzzah" aria-label="Huzzah River gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/huzzah-river-float/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
     <div id="panel-courtois" class="gear-panel" role="tabpanel" aria-labelledby="tab-courtois">
@@ -3315,7 +3426,8 @@ footer {
         <p class="gear-panel-sub">Technical narrow river gear — shorter paddle, gorilla tape, and waterproof hard case for the Huzzah's quiet twin (pronounced CO-tuh-way).</p>
       </div>
       <ul class="gear-section-list" id="gs-courtois" aria-label="Courtois Creek gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/courtois-creek-float/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
     <div id="panel-tube" class="gear-panel" role="tabpanel" aria-labelledby="tab-tube">
@@ -3324,7 +3436,8 @@ footer {
         <p class="gear-panel-sub">Best tubing rivers: Current River (Van Buren/Akers), Black River (Lesterville), and Elk River (Noel). All spring-fed with consistent current and outfitter tube rentals.</p>
       </div>
       <ul class="gear-section-list" id="gs-tube" aria-label="Tubing gear list"></ul>
-      <p class="gear-section-aff">Affiliate links · Prices set by Amazon · See disclosure below</p>
+      <p class="gear-section-aff">As an Amazon Associate we earn from qualifying purchases. Prices and availability set by Amazon.</p>
+      <p style="margin-top:1.25rem;text-align:center;"><a href="/gear/tubing/" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.625rem 1.25rem;background:var(--rust);color:var(--white);text-decoration:none;font-size:var(--t-sm);font-weight:600;letter-spacing:0.04em;border-radius:4px;">View full guide <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></p>
     </div>
 
   </div>
@@ -3685,9 +3798,47 @@ footer {
 
 </main>
 
+<!-- ─── SHARE ROW ─── -->
+<aside class="share-row" aria-label="Share this page">
+  <div class="share-row__inner">
+    <p class="share-row__label">Found this useful? Pass it along.</p>
+    <p class="share-row__sub">Help a friend find their perfect Ozark float.</p>
+    <div class="share-row__btns" id="share-btns">
+      <button type="button" class="share-btn" data-share="native" aria-label="Share via your device">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <span>Share</span>
+      </button>
+      <a class="share-btn" data-share="facebook" href="#" target="_blank" rel="noopener" aria-label="Share on Facebook">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>
+        <span>Facebook</span>
+      </a>
+      <a class="share-btn" data-share="x" href="#" target="_blank" rel="noopener" aria-label="Share on X">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21l-6.51 7.44L22 22h-6.844l-4.78-6.247L4.8 22H2.043l6.96-7.953L2 2h6.91l4.323 5.715L18.244 2zM17.13 20.13h1.59L7.06 3.77H5.36L17.13 20.13z"/></svg>
+        <span>Post</span>
+      </a>
+      <a class="share-btn" data-share="reddit" href="#" target="_blank" rel="noopener" aria-label="Share on Reddit">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="12" r="1.2" fill="currentColor"/><circle cx="15" cy="12" r="1.2" fill="currentColor"/><path d="M8.5 15.5c1 .8 2.2 1.2 3.5 1.2s2.5-.4 3.5-1.2"/><circle cx="19" cy="7.5" r="1.4" fill="currentColor"/><path d="M14 6.5l3.7-1"/></svg>
+        <span>Reddit</span>
+      </a>
+      <a class="share-btn" data-share="sms" href="#" aria-label="Share via text message">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>Text</span>
+      </a>
+      <a class="share-btn" data-share="email" href="#" aria-label="Share via email">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,7 12,13 21,7"/></svg>
+        <span>Email</span>
+      </a>
+      <button type="button" class="share-btn" data-share="copy" aria-label="Copy link to clipboard">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span class="share-btn__txt">Copy link</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
 <!-- Disclosure -->
 <div class="disc" role="note" aria-label="Affiliate disclosure">
-  <p>Missouri Float Trip Guide participates in the Amazon Services LLC Associates Program and may earn commissions from qualifying purchases made through links on this site. Outfitter links may also be referral links. This does not affect our recommendations.</p>
+  <p>As an Amazon Associate, Missouri Float Trip Guide earns from qualifying purchases. We participate in the Amazon Services LLC Associates Program, an affiliate advertising program. Outfitter links may also be referral links. This does not affect our recommendations.</p>
 </div>
 
 <!-- Footer -->
@@ -4425,6 +4576,14 @@ function pickRiver() {
   return o==='stl' ? 'courtois' : (o==='kc' ? 'niangua' : 'current');
 }
 
+/* River-key → URL slug for the dedicated /rivers/[slug]/ pages */
+const RIVER_SLUGS = {
+  current:'current-river', jacksfork:'jacks-fork', meramec:'meramec-river',
+  elevenpoint:'eleven-point', bigpiney:'big-piney', elk:'elk-river',
+  niangua:'niangua-river', black:'black-river', huzzah:'huzzah-river',
+  courtois:'courtois-creek'
+};
+
 /* ── RENDER RESULT ── */
 function showResult(key) {
   const r = RIVERS[key], p = persona || 'chill';
@@ -4436,6 +4595,14 @@ function showResult(key) {
 
   document.getElementById('result-hd').textContent = r.name;
   document.getElementById('result-tagline').textContent = r.tagline;
+
+  /* Deep-link to the dedicated river page */
+  const dl = document.getElementById('result-deeplink');
+  const dlTxt = document.getElementById('result-deeplink-text');
+  if (dl && RIVER_SLUGS[key]) {
+    dl.href = `/rivers/${RIVER_SLUGS[key]}/`;
+    if (dlTxt) dlTxt.textContent = `Read the full ${r.name.replace(' River','').replace(' Creek','')} guide`;
+  }
 
   const pnote = document.getElementById('result-persona-note');
   pnote.className = `persona-note ${p}`;
@@ -5092,6 +5259,65 @@ async function fetchLevels() {
 }
 fetchLevels();
 setInterval(fetchLevels, 20 * 60 * 1000);
+
+/* ─────────────────────────────────────────
+   SHARE BUTTONS
+───────────────────────────────────────── */
+(function initShareRow() {
+  const root = document.getElementById('share-btns');
+  if (!root) return;
+
+  const url   = window.location.href.split('#')[0];
+  const title = document.title;
+  const text  = (document.querySelector('meta[name="description"]')?.content) || title;
+
+  const enc = encodeURIComponent;
+  const links = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`,
+    x:        `https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(title)}`,
+    reddit:   `https://www.reddit.com/submit?url=${enc(url)}&title=${enc(title)}`,
+    sms:      `sms:?&body=${enc(title + ' — ' + url)}`,
+    email:    `mailto:?subject=${enc(title)}&body=${enc(text + '\n\n' + url)}`
+  };
+
+  root.querySelectorAll('a[data-share]').forEach(a => {
+    const key = a.getAttribute('data-share');
+    if (links[key]) a.setAttribute('href', links[key]);
+  });
+
+  // Native share — show only if supported (mainly mobile)
+  const nativeBtn = root.querySelector('[data-share="native"]');
+  if (navigator.share && nativeBtn) {
+    nativeBtn.style.display = 'inline-flex';
+    nativeBtn.addEventListener('click', async () => {
+      try { await navigator.share({ title, text, url }); } catch(_) {}
+    });
+  }
+
+  // Copy link
+  const copyBtn = root.querySelector('[data-share="copy"]');
+  if (copyBtn) {
+    const txt = copyBtn.querySelector('.share-btn__txt');
+    const original = txt.textContent;
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch(_) {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = url; document.body.appendChild(ta);
+        ta.select(); try { document.execCommand('copy'); } catch(_) {}
+        document.body.removeChild(ta);
+      }
+      copyBtn.classList.add('is-copied');
+      txt.textContent = 'Link copied';
+      setTimeout(() => {
+        copyBtn.classList.remove('is-copied');
+        txt.textContent = original;
+      }, 1800);
+    });
+  }
+})();
 </script>
 
 </body>

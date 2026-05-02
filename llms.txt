@@ -10,25 +10,25 @@ The site does NOT cover the Big River. Big River is excluded from all recommenda
 
 ## Rivers Covered
 
-- [Current River](https://missourifloattripguide.com/#rvc-current): Missouri's most celebrated float river. Spring-fed, crystal clear, dolomite bluffs. Part of the Ozark National Scenic Riverways. Best access from Akers, Pulltite, Round Spring, Two Rivers, Van Buren.
-- [Jacks Fork River](https://missourifloattripguide.com/#rvc-jacksfork): The Current's wilder twin. Fewer crowds, more challenge, breathtaking bluff scenery. Centered on Eminence and Alley Spring.
-- [Meramec River](https://missourifloattripguide.com/#rvc-meramec): St. Louis's backyard river. Friendly, accessible, built for groups. Onondaga Cave State Park to Meramec State Park is the classic corridor; Meramec Caverns is the iconic landmark.
-- [Eleven Point River](https://missourifloattripguide.com/#rvc-elevenpoint): Missouri's most remote national scenic river. Cold, clear, genuinely wild. Greer Spring transforms the river into a Blue Ribbon trout fishery.
-- [Big Piney River](https://missourifloattripguide.com/#rvc-bigpiney): Underrated technical Ozark float through Mark Twain National Forest. Smallmouth Bass Special Management Area. Devil's Elbow Route 66 landmark on the lower river.
-- [Elk River](https://missourifloattripguide.com/#rvc-elk): Missouri's premier party-float destination centered on Noel. Best trophy smallmouth river in southwestern Missouri.
-- [Niangua River](https://missourifloattripguide.com/#rvc-niangua): Spring-fed scenic float at Bennett Spring State Park. White Ribbon trout water below the spring; smallmouth above and below.
-- [Black River](https://missourifloattripguide.com/#rvc-black): Hidden Ozark gem near Lesterville. Spring-fed, scenic, light crowds. Home to Johnson Shut-Ins State Park; Clearwater Lake on the lower river.
-- [Huzzah River](https://missourifloattripguide.com/#rvc-huzzah): High-energy party-float corridor. Narrow, twisty, crystal clear. Centered on Steelville.
-- [Courtois Creek](https://missourifloattripguide.com/#rvc-courtois): The Huzzah's quiet twin. Pronounced "CO-tuh-way." Technical paddling required; naturally filters out big rafts.
+- [Current River](https://missourifloattripguide.com/rivers/current-river/): Missouri's most celebrated float river. Spring-fed, crystal clear, dolomite bluffs. Part of the Ozark National Scenic Riverways. Best access from Akers, Pulltite, Round Spring, Two Rivers, Van Buren.
+- [Jacks Fork River](https://missourifloattripguide.com/rivers/jacks-fork/): The Current's wilder twin. Fewer crowds, more challenge, breathtaking bluff scenery. Centered on Eminence and Alley Spring.
+- [Meramec River](https://missourifloattripguide.com/rivers/meramec-river/): St. Louis's backyard river. Friendly, accessible, built for groups. Onondaga Cave State Park to Meramec State Park is the classic corridor; Meramec Caverns is the iconic landmark.
+- [Eleven Point River](https://missourifloattripguide.com/rivers/eleven-point/): Missouri's most remote national scenic river. Cold, clear, genuinely wild. Greer Spring transforms the river into a Blue Ribbon trout fishery.
+- [Big Piney River](https://missourifloattripguide.com/rivers/big-piney/): Underrated technical Ozark float through Mark Twain National Forest. Smallmouth Bass Special Management Area. Devil's Elbow Route 66 landmark on the lower river.
+- [Elk River](https://missourifloattripguide.com/rivers/elk-river/): Missouri's premier party-float destination centered on Noel. Best trophy smallmouth river in southwestern Missouri.
+- [Niangua River](https://missourifloattripguide.com/rivers/niangua-river/): Spring-fed scenic float at Bennett Spring State Park. White Ribbon trout water below the spring; smallmouth above and below.
+- [Black River](https://missourifloattripguide.com/rivers/black-river/): Hidden Ozark gem near Lesterville. Spring-fed, scenic, light crowds. Home to Johnson Shut-Ins State Park; Clearwater Lake on the lower river.
+- [Huzzah River](https://missourifloattripguide.com/rivers/huzzah-river/): High-energy party-float corridor. Narrow, twisty, crystal clear. Centered on Steelville.
+- [Courtois Creek](https://missourifloattripguide.com/rivers/courtois-creek/): The Huzzah's quiet twin. Pronounced "CO-tuh-way." Technical paddling required; naturally filters out big rafts.
 
 ## Tools and Resources
 
 - [Find My River Quiz](https://missourifloattripguide.com/#quiz-section): 5-question planning quiz covering group composition, vessel preference, dog status, and trip style. Returns a specific river and vessel recommendation.
 - [Live River Conditions](https://missourifloattripguide.com/conditions.html): USGS gauge data plus Open-Meteo weather and 7-day forecast for all 10 rivers. Hourly updates, no manual maintenance.
 - [Vessel Guide](https://missourifloattripguide.com/#vessel-section): Decision matrix for canoe, kayak, raft, and tube selection.
-- [All Rivers Index](https://missourifloattripguide.com/#rivers-section): Detailed Explore drawers for all 10 rivers covering segments, must-see landmarks, fishing notes, drive times, water clarity scores, and outfitter information.
+- [All Rivers Index](https://missourifloattripguide.com/rivers/): Dedicated guide page per river covering segments, must-see landmarks, fishing notes, drive times, water clarity scores, live USGS conditions, and an interactive outfitter map.
 - [Outfitter Maps](https://missourifloattripguide.com/#outfitter-maps-section): Interactive Leaflet map of 58 licensed outfitters across all 10 rivers. Each pin includes name, segment/town, phone, website, vessel types offered, and on-site camping/lodging info.
-- [Float Trip Gear Lists](https://missourifloattripguide.com/#gear-section): Gear recommendations by trip type (Party Float, Day Float, Overnight, Experienced, Huzzah-specific, Courtois-specific, Tubing, Dog Friendly).
+- [Float Trip Gear Lists](https://missourifloattripguide.com/gear/): Gear recommendations by trip type with dedicated guide page per category. Categories: [Party Float](https://missourifloattripguide.com/gear/party-float/), [Day Float](https://missourifloattripguide.com/gear/day-float/), [Overnight Float](https://missourifloattripguide.com/gear/overnight-float/), [Experienced Paddler](https://missourifloattripguide.com/gear/experienced-paddler/), [Dog Friendly Float](https://missourifloattripguide.com/gear/dog-friendly-float/), [Huzzah River Float](https://missourifloattripguide.com/gear/huzzah-river-float/), [Courtois Creek Float](https://missourifloattripguide.com/gear/courtois-creek-float/), [Tubing](https://missourifloattripguide.com/gear/tubing/).
 - [Printable Packing Checklist](https://missourifloattripguide.com/#checklist-section): Two-column interactive checklist with a "What Not to Do" companion column. Print-optimized.
 
 ## Key Local Knowledge
@@ -60,6 +60,6 @@ The site maintains an evergreen outfitter map covering 58 licensed Missouri floa
 ## Optional
 
 - Operated by District 805 LLC, Arnold, Missouri
-- The site is a single-file HTML build deployed on GitHub Pages with a custom domain via Spaceship.com
+- The site is a static multi-page build (homepage, /conditions.html, /rivers/ index, and a dedicated page for each of the 10 rivers) deployed on GitHub Pages with a custom domain via Spaceship.com
 - Affiliate disclosure: participates in the Amazon Associates program for gear recommendations
 - Live data sources: USGS Water Data API, Open-Meteo Weather API
