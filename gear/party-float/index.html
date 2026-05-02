@@ -2681,7 +2681,7 @@ footer {
       <li><a href="/#levels-section">Live Levels</a></li>
       <li><a href="/rivers/">All Rivers</a></li>
       <li><a href="/#outfitter-maps-section">Outfitter Maps</a></li>
-      <li><a href="/#gear-section">Gear Lists</a></li>
+      <li><a href="/gear/">Gear Lists</a></li>
       <li><a href="/#checklist-section">Packing List</a></li>
       <li><a href="/#quiz-section" class="nav-cta">Get Started</a></li>
     </ul>
@@ -2696,7 +2696,7 @@ footer {
     <a href="/#levels-section">Live Levels</a>
     <a href="/rivers/">All Rivers</a>
     <a href="/#outfitter-maps-section">Outfitter Maps</a>
-    <a href="/#gear-section">Gear Lists</a>
+    <a href="/gear/">Gear Lists</a>
     <a href="/#checklist-section">Packing List</a>
   </nav>
 </header>
@@ -2975,6 +2975,15 @@ footer {
 
 
 <script>
+/* Nav scroll (mirror of homepage behavior) */
+(function() {
+  const nav = document.getElementById('site-nav');
+  if (!nav) return;
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
 /* Mobile menu toggle */
 (function() {
   const btn  = document.querySelector('#nav-toggle');

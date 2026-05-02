@@ -932,6 +932,29 @@ ul, ol { list-style: none; }
 .persona-note p { font-size: var(--t-sm); color: rgba(255,255,255,0.9); line-height: 1.65; font-weight: 400; }
 .persona-note strong { color: var(--white); font-weight: 600; }
 
+/* Deep-link from result hero to the dedicated river page */
+.result-deeplink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.625rem 1.125rem;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  color: rgba(255,255,255,0.92);
+  font-family: var(--sans);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.result-deeplink:hover, .result-deeplink:focus-visible {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.6);
+  outline: none;
+}
+.result-deeplink svg { width: 0.875rem; height: 0.875rem; stroke: currentColor; stroke-width: 2.5; fill: none; }
+
 /* Result body content */
 .result-body {
   background: var(--cream);
@@ -2651,9 +2674,9 @@ footer {
       <li><a href="/conditions.html">River Conditions</a></li>
       <li><a href="/#vessel-section">Vessel Guide</a></li>
       <li><a href="/#levels-section">Live Levels</a></li>
-      <li><a href="/#rivers-section">All Rivers</a></li>
+      <li><a href="/rivers/">All Rivers</a></li>
       <li><a href="/#outfitter-maps-section">Outfitter Maps</a></li>
-      <li><a href="/#gear-section">Gear Lists</a></li>
+      <li><a href="/gear/">Gear Lists</a></li>
       <li><a href="/#checklist-section">Packing List</a></li>
       <li><a href="/#quiz-section" class="nav-cta">Get Started</a></li>
     </ul>
@@ -2666,9 +2689,9 @@ footer {
     <a href="/conditions.html">River Conditions</a>
     <a href="/#vessel-section">Vessel Guide</a>
     <a href="/#levels-section">Live Levels</a>
-    <a href="/#rivers-section">All Rivers</a>
+    <a href="/rivers/">All Rivers</a>
     <a href="/#outfitter-maps-section">Outfitter Maps</a>
-    <a href="/#gear-section">Gear Lists</a>
+    <a href="/gear/">Gear Lists</a>
     <a href="/#checklist-section">Packing List</a>
   </nav>
 </header>
@@ -2952,9 +2975,18 @@ footer {
   document.head.appendChild(js);
 })();
 
+/* ── Nav scroll (mirror of homepage behavior) ── */
+(function initNavScroll() {
+  const nav = document.getElementById('site-nav');
+  if (!nav) return;
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
 /* ── Mobile menu toggle ── */
 (function initMobileMenu() {
-  const btn  = document.querySelector('.menu-toggle');
+  const btn  = document.querySelector('#nav-toggle, .menu-toggle');
   const menu = document.querySelector('.mobile-menu');
   if (!btn || !menu) return;
   btn.addEventListener('click', () => {
