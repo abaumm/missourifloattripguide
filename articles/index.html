@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Float Trip Guides and Articles — Missouri Float Trip Guide</title>
+<meta name="description" content="Community-sourced guides on overnight floats, shuttle logistics, gear picks, and more for Missouri Ozark rivers.">
+<link rel="canonical" href="https://missourifloattripguide.com/articles/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:       #1A1A18;
+  --ink-70:    #3D3D3A;
+  --ink-50:    #6B6B67;
+  --ink-40:    #999994;
+  --ink-20:    #CCCCC8;
+  --ink-08:    #E8E8E4;
+  --ink-04:    #F4F4F0;
+  --cream:     #F7F4EE;
+  --cream-dk:  #EDE8DF;
+  --white:     #FFFFFF;
+  --rust:      #B5421C;
+  --rust-dk:   #903516;
+  --rust-lt:   #F0E8E3;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --t-xs: 0.8125rem; --t-sm: 0.9375rem; --t-base: 1rem;
+  --t-md: 1.125rem; --t-lg: 1.375rem; --t-xl: 1.75rem;
+  --t-2xl: 2.25rem; --t-3xl: 3.25rem;
+  --max-w: 1160px;
+  --side: clamp(1.5rem, 5vw, 5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 100%; scroll-behavior: smooth; }
+body { font-family: var(--sans); font-size: var(--t-base); line-height: 1.65; color: var(--ink); background: var(--cream); overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font-family: var(--sans); }
+ul, ol { list-style: none; }
+
+.skip { position: absolute; left: 1rem; top: -10rem; z-index: 9999; padding: 0.75rem 1.25rem; background: var(--rust); color: var(--white); font-size: var(--t-sm); font-weight: 600; border-radius: 4px; text-decoration: none; transition: top 0.2s; }
+.skip:focus { top: 1rem; }
+:focus-visible { outline: 2.5px solid var(--rust); outline-offset: 3px; border-radius: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 4rem; display: flex; align-items: center; justify-content: space-between; padding-inline: var(--side); transition: background 0.3s, box-shadow 0.3s; }
+.nav.scrolled { background: rgba(26,26,24,0.96); backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
+.nav-logo { font-family: var(--serif); font-size: var(--t-lg); font-weight: 600; color: var(--white); text-decoration: none; letter-spacing: 0.01em; line-height: 1; white-space: nowrap; flex-shrink: 0; margin-right: 1rem; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; flex-wrap: nowrap; }
+.nav-links a { font-size: var(--t-sm); font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; padding: 0.5rem 0.875rem; border-radius: 3px; letter-spacing: 0.03em; white-space: nowrap; flex-shrink: 0; transition: color 0.15s, background 0.15s; }
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
+.nav-links a[aria-current="page"] { color: var(--white); }
+.nav-cta { font-size: var(--t-sm); font-weight: 600; color: var(--white) !important; background: var(--rust) !important; padding: 0.5rem 1.25rem !important; border-radius: 3px; letter-spacing: 0.04em; transition: background 0.15s !important; }
+.nav-cta:hover { background: var(--rust-dk) !important; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--white); flex-direction: column; gap: 5px; align-items: flex-end; }
+.nav-toggle span { display: block; height: 1.5px; background: currentColor; border-radius: 2px; transition: transform 0.2s, opacity 0.2s, width 0.2s; }
+.nav-toggle span:nth-child(1) { width: 22px; }
+.nav-toggle span:nth-child(2) { width: 16px; }
+.nav-toggle span:nth-child(3) { width: 22px; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); width: 22px; }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; top: 4rem; left: 0; right: 0; background: rgba(26,26,24,0.97); backdrop-filter: blur(16px); z-index: 199; padding: 1.5rem var(--side) 2rem; flex-direction: column; gap: 0.25rem; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-size: var(--t-base); font-weight: 500; color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.875rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); letter-spacing: 0.02em; transition: color 0.15s; }
+.mobile-menu a:hover { color: var(--white); }
+.mobile-menu a:last-child { border-bottom: none; }
+
+.page-hero { padding-top: 6rem; padding-bottom: 3rem; background: var(--ink); position: relative; overflow: hidden; }
+.page-hero::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.015) 28px, rgba(255,255,255,0.015) 29px); pointer-events: none; }
+.page-hero-inner { position: relative; z-index: 1; max-width: var(--max-w); margin-inline: auto; padding-inline: var(--side); }
+.page-crumbs { font-size: var(--t-sm); color: rgba(255,255,255,0.45); margin-bottom: 1.25rem; }
+.page-crumbs a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.15s; }
+.page-crumbs a:hover { color: rgba(255,255,255,0.8); }
+.page-hero h1 { font-family: var(--serif); font-size: clamp(var(--t-xl), 4vw, var(--t-3xl)); font-weight: 700; line-height: 1.2; color: var(--white); margin-bottom: 0.75rem; }
+.page-hero-sub { font-size: var(--t-md); color: rgba(255,255,255,0.6); max-width: 50ch; line-height: 1.6; }
+
+.articles-body { max-width: var(--max-w); margin-inline: auto; padding-inline: var(--side); padding-block: clamp(3rem, 6vw, 5rem); }
+
+.articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+
+.article-card { background: var(--white); border: 1px solid var(--ink-08); border-radius: 6px; padding: 1.75rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0.75rem; transition: border-color 0.15s, box-shadow 0.15s; }
+.article-card:hover { border-color: var(--rust); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.article-card-tag { font-size: var(--t-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rust); }
+.article-card-title { font-family: var(--serif); font-size: var(--t-lg); font-weight: 700; line-height: 1.25; color: var(--ink); }
+.article-card-desc { font-size: var(--t-sm); color: var(--ink-50); line-height: 1.6; flex: 1; }
+.article-card-cta { font-size: var(--t-sm); font-weight: 600; color: var(--rust); display: flex; align-items: center; gap: 0.375rem; margin-top: 0.25rem; }
+.article-card-cta svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.15s; }
+.article-card:hover .article-card-cta svg { transform: translateX(3px); }
+
+footer { background: var(--ink); padding: 2.5rem var(--side) 1.5rem; margin-top: clamp(3rem, 6vw, 5rem); }
+.footer-inner { max-width: var(--max-w); margin-inline: auto; margin-bottom: 1.5rem; }
+.ft-brand { font-family: var(--serif); font-size: var(--t-lg); color: var(--white); font-weight: 600; margin-bottom: 0.5rem; }
+.ft-tagline { font-size: var(--t-sm); color: rgba(255,255,255,0.4); max-width: 42ch; line-height: 1.6; }
+.ft-copy { max-width: var(--max-w); margin-inline: auto; font-size: var(--t-xs); color: rgba(255,255,255,0.25); padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); }
+
+@media (max-width: 800px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .articles-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip">Skip to content</a>
+
+<header>
+  <nav class="nav" id="site-nav" aria-label="Main navigation">
+    <a href="/" class="nav-logo" aria-label="Missouri Float Trip Guide home">Missouri Float Trip Guide</a>
+    <ul class="nav-links" role="list">
+      <li><a href="/#quiz-section">Find My River</a></li>
+      <li><a href="/conditions.html">River Conditions</a></li>
+      <li><a href="/#vessel-section">Vessel Guide</a></li>
+      <li><a href="/#levels-section">Live Levels</a></li>
+      <li><a href="/rivers/">All Rivers</a></li>
+      <li><a href="/#outfitter-maps-section">Outfitter Maps</a></li>
+      <li><a href="/gear/">Gear Lists</a></li>
+      <li><a href="/articles/" aria-current="page">Articles</a></li>
+      <li><a href="/#quiz-section" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+    <a href="/#quiz-section">Find My River</a>
+    <a href="/conditions.html">River Conditions</a>
+    <a href="/#vessel-section">Vessel Guide</a>
+    <a href="/#levels-section">Live Levels</a>
+    <a href="/rivers/">All Rivers</a>
+    <a href="/#outfitter-maps-section">Outfitter Maps</a>
+    <a href="/gear/">Gear Lists</a>
+    <a href="/articles/">Articles</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-hero" aria-label="Articles index">
+    <div class="page-hero-inner">
+      <p class="page-crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Articles</p>
+      <h1>Float Trip Guides</h1>
+      <p class="page-hero-sub">Community-sourced intel on overnight floats, shuttle logistics, gear, and Missouri river personalities — updated regularly.</p>
+    </div>
+  </section>
+
+  <div class="articles-body">
+    <div class="articles-grid" role="list" aria-label="Article listing">
+      <a href="/articles/float-camp-combos/" class="article-card" role="listitem" aria-label="Read: Best Float + Camp Combos in Missouri">
+        <span class="article-card-tag">Overnight Floats</span>
+        <span class="article-card-title">Best Float + Camp Combos in Missouri: A Real Floater's Guide</span>
+        <span class="article-card-desc">The camps worth the trip — with direct river access, honest logistics, and insider booking tips from floaters who've put in years on these rivers.</span>
+        <span class="article-card-cta">
+          Read the guide
+          <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <p class="ft-brand">Missouri Float Trip Guide</p>
+      <p class="ft-tagline">An independent planning resource for Missouri and Ozark float trips. No sponsorships. No filler.</p>
+    </div>
+  </div>
+  <p class="ft-copy">© 2025 MissouriFloatTripGuide.com</p>
+</footer>
+
+<script>
+(function() {
+  const nav = document.getElementById('site-nav');
+  if (!nav) return;
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+(function() {
+  const toggle = document.getElementById('nav-toggle');
+  const menu   = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
