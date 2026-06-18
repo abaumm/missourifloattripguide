@@ -412,6 +412,17 @@ ul { list-style: none; }
 .caveat-inner p { font-size: var(--t-sm); color: rgba(255,255,255,0.6); line-height: 1.65; font-weight: 400; }
 .caveat-inner strong { color: rgba(255,255,255,0.85); font-weight: 600; }
 
+/* ── HAZARD SECTION ── */
+.hazard-section { background: var(--cream-dk); border-top: 1px solid var(--ink-08); }
+.hazard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+.hazard-card { background: var(--white); border: 1px solid var(--ink-08); border-radius: 6px; padding: 1.75rem 2rem; }
+.hazard-card-icon { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.875rem; }
+.hazard-card-icon svg { width: 1.125rem; height: 1.125rem; stroke: var(--rust); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 0.2rem; }
+.hazard-card h3 { font-family: var(--serif); font-size: var(--t-lg); font-weight: 700; color: var(--ink); line-height: 1.2; }
+.hazard-card p { font-size: var(--t-sm); color: var(--ink-70); line-height: 1.7; }
+.hazard-card p + p { margin-top: 0.625rem; }
+@media (max-width: 700px) { .hazard-grid { grid-template-columns: 1fr; } }
+
 /* ── SHARE ROW ── */
 .share-row { background: var(--cream); border-top: 1px solid var(--ink-08); padding: clamp(2rem, 4vw, 3rem) var(--side); }
 .share-row__inner { max-width: var(--max-w); margin-inline: auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; text-align: center; }
@@ -571,6 +582,35 @@ footer { background: var(--ink); padding: clamp(2.5rem, 5vw, 4rem) var(--side) c
     <h2 class="section-h2" id="forecast-hd">Float Trip Forecast — Eminence, MO</h2>
     <p class="section-sub">7-day outlook for the heart of the Ozark float corridor. Rain probability above 60% typically means rising, murkier water 12–24 hours later.</p>
     <div id="forecast-table-wrap"></div>
+  </div>
+</section>
+
+<!-- ─── HAZARD AWARENESS ─── -->
+<section class="hazard-section section" id="hazards" aria-labelledby="hazards-hd">
+  <div class="wrap">
+    <p class="eyebrow-row" aria-hidden="true">Before You Launch</p>
+    <h2 class="section-h2" id="hazards-hd">Two Conditions Worth Taking Seriously</h2>
+    <p class="section-sub">The gauge readings above tell you if a river is running high. These two situations explain why that matters more than most people expect.</p>
+
+    <div class="hazard-grid">
+      <div class="hazard-card">
+        <div class="hazard-card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <h3>During and After Heavy Rain — Wait</h3>
+        </div>
+        <p>Rivers respond to upstream rain faster than most people expect. A river that reads Good in the morning can be running High by afternoon from a storm that hit 50 miles away hours earlier. High water is fast, cold, and full of debris — and significantly reduces the time you have to react to obstacles in the current.</p>
+        <p>Never put in during a storm or immediately after heavy rain. If there's been significant rainfall in the past 24 hours, call your outfitter before you go. They check their section daily and will tell you straight whether it's floatable.</p>
+      </div>
+
+      <div class="hazard-card">
+        <div class="hazard-card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <h3>Low-Head Dams — Know Before You Float</h3>
+        </div>
+        <p>Low-head dams are one of the most underestimated hazards on Midwestern waterways. They often look like a gentle step down — even at normal water levels, the drop can seem harmless. At higher water levels, more flow over a dam creates a stronger hydraulic below it: a recirculating current that pushes back toward the base of the dam and is extremely difficult to escape.</p>
+        <p>Before any float, ask your outfitter whether your stretch passes any dams and where they are. Scout from shore before you approach one. Portage around.</p>
+      </div>
+    </div>
   </div>
 </section>
 
