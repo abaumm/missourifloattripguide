@@ -113,6 +113,17 @@ ul, ol { list-style: none; }
 .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 /* ─────────────────────────────────────────
+   FLOOD ALERT BANNER — remove this block (and the
+   .flood-alert markup right after </header>) once the
+   Huzzah Creek flooding has cleared. Added July 2026.
+───────────────────────────────────────── */
+.flood-alert { margin-top: 4rem; background: var(--s-flood-bg); border-bottom: 3px solid var(--s-flood); padding: 1rem var(--side); }
+.flood-alert-inner { max-width: var(--max-w); margin-inline: auto; display: flex; align-items: flex-start; gap: 0.875rem; }
+.flood-alert-icon { flex-shrink: 0; width: 1.375rem; height: 1.375rem; margin-top: 0.2rem; color: var(--s-flood); }
+.flood-alert-text { font-size: var(--t-sm); line-height: 1.55; color: var(--s-flood); }
+.flood-alert-text a { color: var(--s-flood); text-decoration: underline; font-weight: 600; }
+
+/* ─────────────────────────────────────────
    LAYOUT UTILITIES
 ───────────────────────────────────────── */
 .wrap {
@@ -2696,6 +2707,16 @@ footer {
   </nav>
 </header>
 
+<div class="flood-alert" role="alert">
+  <div class="flood-alert-inner">
+    <svg class="flood-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+    <p class="flood-alert-text">
+      <strong>Active flood emergency — do not float Huzzah Creek right now.</strong>
+      Record flash flooding hit Crawford County starting July&nbsp;10, 2026 (a 1-in-1,000-year rain event). Huzzah Creek hit its highest level on record, well above the previous high. Roads have washed out and search/rescue operations are ongoing nearby. Check the live gauge reading below before planning any trip, and always confirm directly with your outfitter.
+    </p>
+  </div>
+</div>
+
 <main id="main">
 
   <section class="river-hero" aria-label="Huzzah River overview">
@@ -2723,7 +2744,7 @@ footer {
       <p class="rp-eyebrow">Right Now</p>
       <h2>Live conditions on the Huzzah</h2>
       <p class="rp-intro">USGS gauge data, refreshed when this page loads. River conditions change fast — always confirm with your outfitter the morning of your trip.</p>
-      <div class="rp-conditions" id="rp-cond" data-gauge='{"key": "huzzah", "name": "Huzzah River", "region": "Crawford County \u00b7 Near Sullivan, MO", "gaugeId": "07019130", "gaugeLabel": "Huzzah", "stripe": "#C4622D", "outName": "Huzzah Valley Resort", "outUrl": "https://www.huzzahvalley.com/", "low": 60, "good": 800, "high": 2000}'>
+      <div class="rp-conditions" id="rp-cond" data-gauge='{"key": "huzzah", "name": "Huzzah River", "region": "Crawford County \u00b7 Near Sullivan, MO", "gaugeId": "07014000", "gaugeLabel": "Steelville", "stripe": "#C4622D", "outName": "Huzzah Valley Resort", "outUrl": "https://www.huzzahvalley.com/", "low": 60, "good": 800, "high": 2000}'>
         <div class="rp-cond-stripe"></div>
         <div class="rp-cond-main">
           <span class="rp-cond-status" id="rp-cond-status">Loading…</span>

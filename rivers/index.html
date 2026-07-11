@@ -109,6 +109,18 @@ ul, ol { list-style: none; }
 .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 /* ─────────────────────────────────────────
+   FLOOD ALERT BANNER — remove this block (and the
+   .flood-alert markup right after </header>) once the
+   Black River / Huzzah Creek / St. Francis flooding has
+   cleared. Added July 2026.
+───────────────────────────────────────── */
+.flood-alert { margin-top: 4rem; background: var(--s-flood-bg); border-bottom: 3px solid var(--s-flood); padding: 1rem var(--side); }
+.flood-alert-inner { max-width: var(--max-w); margin-inline: auto; display: flex; align-items: flex-start; gap: 0.875rem; }
+.flood-alert-icon { flex-shrink: 0; width: 1.375rem; height: 1.375rem; margin-top: 0.2rem; color: var(--s-flood); }
+.flood-alert-text { font-size: var(--t-sm); line-height: 1.55; color: var(--s-flood); }
+.flood-alert-text a { color: var(--s-flood); text-decoration: underline; font-weight: 600; }
+
+/* ─────────────────────────────────────────
    LAYOUT UTILITIES
 ───────────────────────────────────────── */
 .wrap {
@@ -2574,6 +2586,16 @@ footer {
     <a href="/#checklist-section">Packing List</a>
   </nav>
 </header>
+
+<div class="flood-alert" role="alert">
+  <div class="flood-alert-inner">
+    <svg class="flood-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+    <p class="flood-alert-text">
+      <strong>Active flood emergency — do not float the Black River, Huzzah Creek, or St. Francis River.</strong>
+      Record flash flooding hit Iron, Reynolds, Crawford &amp; Wayne counties starting July&nbsp;10, 2026 (a 1-in-1,000-year rain event). The Black River crested at a record 28.7&nbsp;ft near Lesterville and Huzzah Creek hit its highest level on record. Missouri's governor has declared a state of emergency — water rescues, washed-out roads, and evacuations (including Camp Taum Sauk in Lesterville) are ongoing. <strong>The Current River is unaffected and running normal</strong> per multiple confirmations. Check <a href="/conditions.html">live river conditions</a> before planning any trip, and always confirm directly with your outfitter.
+    </p>
+  </div>
+</div>
 
 <main id="main">
 
