@@ -3971,29 +3971,33 @@ footer {
 const TAG = 'missourifloat-20';
 
 /* ── USGS GAUGE CONFIG ── */
+/* NOTE: thresholds are keyed by river (key), not by gaugeId — Courtois
+   Creek has no USGS gauge of its own and proxies off the Huzzah gauge,
+   so two rivers below intentionally share one gaugeId. Keying THRESH
+   by gaugeId would make them collide and overwrite each other. */
 const GAUGES = [
-  { river: 'Current River',   id: '07067000', label: 'Van Buren'   },
-  { river: 'Jacks Fork',      id: '07065495', label: 'Eminence'    },
-  { river: 'Meramec River',   id: '07018500', label: 'Eureka'      },
-  { river: 'Eleven Point',    id: '07072000', label: 'Thomasville' },
-  { river: 'Big Piney River', id: '06926510', label: 'Hooker'      },
-  { river: 'Elk River',       id: '07188000', label: 'Tiff City'   },
-  { river: 'Niangua River',   id: '06924500', label: 'Bennett Spr' },
-  { river: 'Black River',     id: '07064000', label: 'Lesterville' },
-  { river: 'Huzzah River',    id: '07019130', label: 'Huzzah'      },
-  { river: 'Courtois Creek',  id: '07019000', label: 'Courtois'    },
+  { key:'current',     river: 'Current River',   id: '07067000', label: 'Van Buren'   },
+  { key:'jacksfork',    river: 'Jacks Fork',      id: '07065495', label: 'Eminence'    },
+  { key:'meramec',      river: 'Meramec River',   id: '07019000', label: 'Eureka'      },
+  { key:'elevenpoint',  river: 'Eleven Point',    id: '07071500', label: 'Bardley' },
+  { key:'bigpiney',     river: 'Big Piney River', id: '06930000', label: 'Big Piney, MO'      },
+  { key:'elk',          river: 'Elk River',       id: '07189000', label: 'Tiff City'   },
+  { key:'niangua',      river: 'Niangua River',   id: '06923250', label: 'Windyville' },
+  { key:'black',        river: 'Black River',     id: '07061500', label: 'Annapolis' },
+  { key:'huzzah',       river: 'Huzzah River',    id: '07014000', label: 'Steelville'      },
+  { key:'courtois',     river: 'Courtois Creek',  id: '07014000', label: 'Huzzah Creek — nearest gauge'    },
 ];
 const THRESH = {
-  '07067000': { low:300,  good:2500, high:6000  },
-  '07065495': { low:100,  good:1200, high:3000  },
-  '07018500': { low:200,  good:3000, high:8000  },
-  '07072000': { low:80,   good:800,  high:2000  },
-  '06926510': { low:50,   good:600,  high:1800  },
-  '07188000': { low:150,  good:2000, high:5000  },
-  '06924500': { low:80,   good:1000, high:2500  },
-  '07064000': { low:100,  good:1500, high:4000  },
-  '07019130': { low:60,   good:800,  high:2000  },
-  '07019000': { low:40,   good:600,  high:1500  },
+  current:      { low:300,  good:2500, high:6000  },
+  jacksfork:    { low:100,  good:1200, high:3000  },
+  meramec:      { low:200,  good:3000, high:8000  },
+  elevenpoint:  { low:80,   good:800,  high:2000  },
+  bigpiney:     { low:50,   good:600,  high:1800  },
+  elk:          { low:150,  good:2000, high:5000  },
+  niangua:      { low:80,   good:1000, high:2500  },
+  black:        { low:100,  good:1500, high:4000  },
+  huzzah:       { low:60,   good:800,  high:2000  },
+  courtois:     { low:40,   good:600,  high:1500  },
 };
 
 /* ── RIVER DATA ── */
@@ -5306,7 +5310,7 @@ async function fetchLevels() {
     GAUGES.forEach(g => {
       const rv = readings[g.id] || {};
       const { cfs, stage } = rv;
-      const t = THRESH[g.id];
+      const t = THRESH[g.key];
       let status = 'loading', badge = 'No data', plain = 'Gauge data unavailable. Confirm with your outfitter.';
 
       if (cfs !== undefined && t) {
