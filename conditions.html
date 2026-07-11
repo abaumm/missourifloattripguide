@@ -796,6 +796,16 @@ function floatAdvice(code, precip, windspeed) {
 function wmoIcon(code) { return WMO_ICON[code] || '🌡️'; }
 function wmoDesc(code) { return WMO[code] || 'Variable conditions'; }
 
+/* EPA/WHO UV Index scale — a float trip means hours of unbroken sun
+   exposure on open water, so this is worth surfacing plainly. */
+function uvLabel(uv) {
+  if (uv < 3)  return { text: 'Low',        color: 'var(--s-good)' };
+  if (uv < 6)  return { text: 'Moderate',   color: 'var(--s-low)'  };
+  if (uv < 8)  return { text: 'High',       color: 'var(--s-high)' };
+  if (uv < 11) return { text: 'Very High',  color: 'var(--s-flood)' };
+  return             { text: 'Extreme',    color: 'var(--s-flood)' };
+}
+
 /* ═══════════════════════════════════════════
    STATUS HELPERS
 ═══════════════════════════════════════════ */
@@ -977,7 +987,7 @@ async function fetchWeather() {
   grid.innerHTML = '';
 
   const fetches = WEATHER_LOCATIONS.map(loc =>
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m,precipitation_probability,relativehumidity_2m&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FChicago`)
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m,precipitation_probability,relativehumidity_2m,uv_index&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FChicago`)
       .then(r => r.json())
       .then(d => ({ loc, data: d.current }))
       .catch(() => ({ loc, data: null }))
@@ -998,6 +1008,8 @@ async function fetchWeather() {
       const wind    = Math.round(data.windspeed_10m);
       const humidity= Math.round(data.relativehumidity_2m);
       const precip  = data.precipitation_probability || 0;
+      const uv      = data.uv_index;
+      const uvInfo  = Number.isFinite(uv) ? uvLabel(uv) : null;
       const advice  = floatAdvice(code, precip, wind);
 
       card.innerHTML = `
@@ -1009,6 +1021,7 @@ async function fetchWeather() {
           <div class="weather-row"><span>Wind</span><span>${wind} mph</span></div>
           <div class="weather-row"><span>Humidity</span><span>${humidity}%</span></div>
           <div class="weather-row"><span>Rain chance</span><span>${precip}%</span></div>
+          ${uvInfo ? `<div class="weather-row"><span>UV index</span><span style="color:${uvInfo.color};">${Math.round(uv)} · ${uvInfo.text}</span></div>` : ''}
           <div class="weather-row"><span style="font-size:0.75rem;color:var(--ink-40);">${loc.name}</span></div>
         </div>
         <div class="weather-float-advice ${advice.cls}">
