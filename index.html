@@ -432,58 +432,13 @@ ul, ol { list-style: none; }
   line-height: 1.4;
 }
 
-/* Scroll indicator — hidden in favor of water ripple effect below.
+/* Scroll indicator — hidden (previously replaced by the water-ripple
+   animation, which has since been removed — see below).
    To restore: remove `display:none` from .hero-scroll. */
 .hero-scroll { display: none; }
 
-/* ─── Hero water ripples — subtle horizontal shimmer above tree line ─── */
-.hero-ripples {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 26%;     /* sit just above the tree silhouette band */
-  height: 22%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-  opacity: 0.85;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
-          mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
-}
-.hero-ripples svg {
-  position: absolute;
-  left: -15%;
-  width: 130%;
-  height: 100%;
-  display: block;
-}
-.hero-ripples .ripple {
-  fill: none;
-  stroke-width: 1.25;
-  stroke-linecap: round;
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-.hero-ripples .ripple-1 {
-  stroke: rgba(255,255,255,0.45);
-  animation: rippleDrift 9s ease-in-out infinite;
-}
-.hero-ripples .ripple-2 {
-  stroke: rgba(255,255,255,0.30);
-  animation: rippleDrift 13s ease-in-out infinite reverse;
-}
-.hero-ripples .ripple-3 {
-  stroke: rgba(255,255,255,0.20);
-  animation: rippleDrift 17s ease-in-out infinite;
-  animation-delay: -6s;
-}
-@keyframes rippleDrift {
-  0%, 100% { transform: translate3d(-6%, 0, 0); }
-  50%      { transform: translate3d(6%, 0, 0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-ripples .ripple { animation: none; }
-}
+/* Hero water-ripple animation removed — the animated lines didn't read
+   well over the real photo (see .hero-ripples markup, now removed too). */
 
 /* ─────────────────────────────────────────
    CURVED SECTION DIVIDER
@@ -2660,14 +2615,6 @@ footer {
         </span>
       </button>
     </div>
-  </div>
-
-  <div class="hero-ripples" aria-hidden="true">
-    <svg viewBox="0 0 1200 240" preserveAspectRatio="none">
-      <path class="ripple ripple-1" d="M0,80 C150,72 300,96 450,82 C600,68 750,90 900,78 C1050,66 1150,84 1200,80"/>
-      <path class="ripple ripple-2" d="M0,130 C180,118 320,144 480,128 C640,112 780,138 940,124 C1080,112 1170,134 1200,130"/>
-      <path class="ripple ripple-3" d="M0,180 C160,170 340,194 500,178 C660,162 820,186 980,172 C1100,162 1180,182 1200,180"/>
-    </svg>
   </div>
 
   <div class="hero-scroll" aria-hidden="true">
